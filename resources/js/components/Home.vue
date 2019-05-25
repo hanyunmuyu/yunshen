@@ -62,7 +62,6 @@
     a {
         &:link, &:hover, &:active, &:visited {
             text-decoration: none;
-            color: black;
         }
     }
 </style>

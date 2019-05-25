@@ -1,8 +1,7 @@
 <template>
     <div>
         <mu-container>
-
-            <mu-card v-for="index in 15" style="width: 50%; float: left;padding: 2px;margin-top: 10px" :key="index">
+            <mu-card class="school" v-for="index in 15" :key="index">
                 <router-link :to="{path:'/school/detail',query:{id:index}}">
                     <mu-card-media>
                         <img src="/school.png">
@@ -15,7 +14,7 @@
                     <mu-flex class="flex-wrapper" align-items="center">
                         <mu-flex class="flex-demo" justify-content="center" fill>星级：</mu-flex>
                         <mu-flex class="flex-demo" justify-content="center" fill>
-                            <mu-icon v-for="s in 5" value="star" color="primary" :key="s"></mu-icon>
+                            <mu-icon v-for="s in 4" value="star" color="primary" :key="s"></mu-icon>
                         </mu-flex>
                     </mu-flex>
                 </router-link>
@@ -37,5 +36,17 @@
 </script>
 
 <style lang="scss">
+    .school {
+        width: 50%;
+        float: left;
+        padding: 2px;
+        margin-top: 10px;
 
+        a {
+            &:link, &:hover, &:active, &:visited {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
 </style>
