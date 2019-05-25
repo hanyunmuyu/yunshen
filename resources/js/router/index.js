@@ -9,6 +9,11 @@ import Activity from '../components/explore/Activity';
 import School from '../components/School';
 import Community from '../components/school/Community';
 import Schoolyard from '../components/school/Schoolyard';
+import Student from '../components/school/Student';
+import Question from '../components/school/Question';
+import User from '../components/User';
+import Encounter from '../components/Encounter';
+import Search from '../components/Search';
 
 Vue.use(Router)
 export default new Router({
@@ -50,11 +55,32 @@ export default new Router({
                             path: 'community',
                             component: Community,
                         },
+                        {
+                            path: 'student',
+                            component: Student,
+                        },
+                        {
+                            path: 'question',
+                            component: Question,
+                        },
 
                     ]
                 },
+                {
+                    path: '/user',
+                    component: User,
+                },
+                {
+                    path: '/',
+                    component: Encounter,
+                },
+
 
             ]
+        },
+        {
+            path: '/search',
+            component: Search,
         },
     ]
 });

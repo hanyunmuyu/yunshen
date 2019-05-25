@@ -7,7 +7,7 @@
                 <mu-tab>同学</mu-tab>
                 <mu-tab>问答</mu-tab>
             </mu-tabs>
-            <mu-button flat slot="right">
+            <mu-button flat slot="right" to="/search">
                 <mu-icon value="search"></mu-icon>
             </mu-button>
         </mu-appbar>
@@ -35,16 +35,28 @@
                         this.$router.push('/school/community');
                         this.active = 1;
                         break;
+                    case 2:
+                        this.$router.push('/school/student');
+                        this.active = 2;
+                        break;
+                    case 3:
+                        this.$router.push('/school/question');
+                        this.active = 3;
+                        break;
                 }
             }
         },
         mounted() {
             if (this.$route.path.endsWith('/school')) {
                 this.active = 0;
-            }else if (this.$route.path.startsWith('/school/community')) {
+            } else if (this.$route.path.startsWith('/school/community')) {
                 this.active = 1;
+            } else if (this.$route.path.startsWith('/school/student')) {
+                this.active = 2;
+            } else if (this.$route.path.startsWith('/school/question')) {
+                this.active = 3;
             }
-        }
+        },
     }
 </script>
 

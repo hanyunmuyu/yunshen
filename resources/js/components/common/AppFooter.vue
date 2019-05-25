@@ -6,7 +6,7 @@
                 <mu-bottom-nav-item to="/school" title="高校" value="/school" icon="school"></mu-bottom-nav-item>
                 <mu-bottom-nav-item to="/explore" title="发现" value="/explore" icon="explore"></mu-bottom-nav-item>
                 <mu-bottom-nav-item to="/chat" title="消息" value="chat" icon="chat"></mu-bottom-nav-item>
-                <mu-bottom-nav-item to="/person" title="我的" value="person" icon="person"></mu-bottom-nav-item>
+                <mu-bottom-nav-item to="/user" title="我的" value="person" icon="person"></mu-bottom-nav-item>
             </mu-bottom-nav>
         </mu-container>
     </div>
@@ -17,7 +17,7 @@
         name: "AppFooter",
         data() {
             return {
-                home: '/'
+                home: '/explore'
             }
         },
         methods: {
@@ -27,7 +27,15 @@
         },
         watch: {
             $route(to, from) {
-                this.$data.home = this.$route.path;
+                if (this.$route.path.endsWith('/')) {
+                    this.$data.home = '/';
+                } else if (this.$route.path.startsWith('/school')) {
+                    this.$data.home = '/school';
+                } else if (this.$route.path.startsWith('/explore')) {
+                    this.$data.home = '/explore';
+                }else if (this.$route.path.startsWith('/user')) {
+                    this.$data.home = '/user';
+                }
             }
         },
         mounted() {
@@ -37,6 +45,8 @@
                 this.$data.home = '/school';
             } else if (this.$route.path.startsWith('/explore')) {
                 this.$data.home = '/explore';
+            }else if (this.$route.path.startsWith('/user')) {
+                this.$data.home = '/user';
             }
         }
     }
