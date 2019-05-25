@@ -41,7 +41,7 @@
         mounted() {
             if (this.$route.path.endsWith('/school')) {
                 this.active = 0;
-            }else if (this.$route.path.endsWith('/school/community')) {
+            }else if (this.$route.path.startsWith('/school/community')) {
                 this.active = 1;
             }
         }
