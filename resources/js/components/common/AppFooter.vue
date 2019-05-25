@@ -33,9 +33,9 @@
         mounted() {
             if (this.$route.path.endsWith('/')) {
                 this.$data.home = '/';
-            } else if (this.$route.path.endsWith('/school')) {
+            } else if (this.$route.path.startsWith('/school')) {
                 this.$data.home = '/school';
-            } else if (this.$route.path.endsWith('/explore')) {
+            } else if (this.$route.path.startsWith('/explore')) {
                 this.$data.home = '/explore';
             }
         }
