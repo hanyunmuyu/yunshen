@@ -7,6 +7,7 @@ import Recommend from '../components/explore/Recommend';
 import Attention from '../components/explore/Attention';
 import Activity from '../components/explore/Activity';
 import School from '../components/School';
+import SchoolDetail from '../components/school/Detail';
 import Community from '../components/school/Community';
 import Schoolyard from '../components/school/Schoolyard';
 import Student from '../components/school/Student';
@@ -114,6 +115,10 @@ export default new Router({
         {
             path: '/user/question',
             component: UserQuestion,
+        },
+        {
+            path: '/school/detail',
+            component: SchoolDetail,
         },
     ]
 });
