@@ -18,6 +18,8 @@ import UserCommunity from '../components/user/Community';
 import UserQuestion from '../components/user/Question';
 import Encounter from '../components/Encounter';
 import Search from '../components/Search';
+import Chat from '../components/message/Chat';
+import Message from '../components/Message';
 
 Vue.use(Router)
 export default new Router({
@@ -44,6 +46,17 @@ export default new Router({
                         }, {
                             path: 'activity',
                             component: Activity,
+                        },
+                    ]
+                },
+                {
+                    path: 'message',
+                    component: Message,
+                    children: [
+
+                        {
+                            path: '',
+                            component: Chat,
                         },
                     ]
                 },
