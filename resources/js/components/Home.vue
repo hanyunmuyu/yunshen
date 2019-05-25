@@ -11,6 +11,7 @@
 
 <script>
     import AppFooter from './common/AppFooter'
+
     export default {
         name: "Home",
         data() {
@@ -56,5 +57,11 @@
         top: 0;
         margin: 0 auto;
         width: 100%;
+    }
+
+    a {
+        &:link, &:hover, &:active, &:visited {
+            text-decoration: none;
+        }
     }
 </style>

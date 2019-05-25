@@ -12,6 +12,10 @@ import Schoolyard from '../components/school/Schoolyard';
 import Student from '../components/school/Student';
 import Question from '../components/school/Question';
 import User from '../components/User';
+import UserAttention from '../components/user/Attention';
+import UserFan from '../components/user/Fan';
+import UserCommunity from '../components/user/Community';
+import UserQuestion from '../components/user/Question';
 import Encounter from '../components/Encounter';
 import Search from '../components/Search';
 
@@ -81,6 +85,22 @@ export default new Router({
         {
             path: '/search',
             component: Search,
+        },
+        {
+            path: '/user/attention',
+            component: UserAttention,
+        },
+        {
+            path: '/user/fan',
+            component: UserFan,
+        },
+        {
+            path: '/user/community',
+            component: UserCommunity,
+        },
+        {
+            path: '/user/question',
+            component: UserQuestion,
         },
     ]
 });
