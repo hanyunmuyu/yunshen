@@ -3153,6 +3153,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/js/api/index.js");
 //
 //
 //
@@ -3174,8 +3175,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Student"
+  name: "Student",
+  data: function data() {
+    return {
+      active: 0,
+      userList: [],
+      currentPage: 1,
+      lastPage: 1,
+      refreshing: false,
+      loading: false
+    };
+  },
+  methods: {
+    refresh: function refresh() {
+      var _this = this;
+
+      if (!this.refreshing) {
+        this.refreshing = true;
+        this.$refs.container.scrollTop = 0;
+        this.currentPage = 1;
+        setTimeout(function () {
+          _this.refreshing = false;
+        }, 500);
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getUserList().then(function (userList) {
+          _this.userList = userList.data.data;
+          _this.lastPage = userList.data.lastPage;
+          _this.currentPage = userList.data.currentPage;
+          _this.refreshing = false;
+        });
+      }
+    },
+    load: function load() {
+      var _this2 = this;
+
+      this.loading = true;
+      setTimeout(function () {
+        _this2.loading = false;
+        _this2.currentPage++;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getUserList(_this2.currentPage).then(function (userList) {
+          userList.data.data.forEach(function (school) {
+            _this2.userList.push(school);
+          });
+          _this2.currentPage = userList.data.currentPage;
+        });
+      }, 2000);
+    }
+  },
+  mounted: function mounted() {
+    this.refresh();
+  }
 });
 
 /***/ }),
@@ -21560,47 +21612,73 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "mu-container",
+    { ref: "container" },
     [
       _c(
-        "mu-list",
-        _vm._l(15, function(user) {
-          return _c(
-            "mu-list-item",
-            { key: user, attrs: { avatar: "", ripple: "", button: "" } },
-            [
-              _c(
-                "mu-list-item-action",
+        "mu-load-more",
+        {
+          attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
+          on: { refresh: _vm.refresh, load: _vm.load }
+        },
+        [
+          _c(
+            "mu-list",
+            _vm._l(_vm.userList, function(user, index) {
+              return _c(
+                "mu-list-item",
+                {
+                  key: index,
+                  staticStyle: { "margin-bottom": "10px" },
+                  attrs: { avatar: "", ripple: "", button: "" }
+                },
                 [
-                  _c("mu-avatar", [
-                    _c("img", { attrs: { src: "/avatar.jpg" } })
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "mu-list-item-content",
-                [
-                  _c("mu-list-item-title", [_vm._v("这个周末一起吃饭么?")]),
+                  _c(
+                    "mu-list-item-action",
+                    [
+                      _c("mu-avatar", [
+                        _c("img", {
+                          directives: [
+                            {
+                              name: "lazy",
+                              rawName: "v-lazy",
+                              value: user.avatar,
+                              expression: "user.avatar"
+                            }
+                          ]
+                        })
+                      ])
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("mu-list-item-sub-title", [
-                    _vm._v(
-                      "\n                    周末要来你这里出差，要不要一起吃个饭呀，实在编不下去了,哈哈哈哈哈哈\n                "
-                    )
-                  ])
+                  _c(
+                    "mu-list-item-content",
+                    [
+                      _c("mu-list-item-title", [
+                        _vm._v(_vm._s(user.name) + "?")
+                      ]),
+                      _vm._v(" "),
+                      _c("mu-list-item-sub-title", [
+                        _vm._v(
+                          "\n                        周末要来你这里出差，要不要一起吃个饭呀，实在编不下去了,哈哈哈哈哈哈\n                    "
+                        )
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "mu-button",
+                    { attrs: { round: "", small: "", color: "primary" } },
+                    [_vm._v("关注")]
+                  )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "mu-button",
-                { attrs: { round: "", small: "", color: "primary" } },
-                [_vm._v("关注")]
               )
-            ],
+            }),
             1
           )
-        }),
+        ],
         1
       )
     ],
@@ -37762,6 +37840,15 @@ function post(url, params) {
   getSchoolDetail: function getSchoolDetail(id) {
     return get('api/v1/school/detail', {
       id: id
+    });
+  },
+  getUserList: function getUserList(page) {
+    if (page === undefined) {
+      page = 1;
+    }
+
+    return get('api/v1/user', {
+      page: page
     });
   }
 });

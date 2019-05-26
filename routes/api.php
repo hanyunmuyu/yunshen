@@ -22,4 +22,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1', 'middleware' => ['api']], f
     Route::get('/school/detail', 'SchoolController@detail');
     //社团列表
     Route::get('/community', 'CommunityController@index');
+    //用户列表
+    Route::get('/user', 'UserController@index');
 });

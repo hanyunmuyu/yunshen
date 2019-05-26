@@ -72,6 +72,12 @@ export default {
     },
     getSchoolDetail: function (id) {
         return get('api/v1/school/detail', {id: id});
+    },
+    getUserList: function (page) {
+        if (page === undefined) {
+            page = 1;
+        }
+        return get('api/v1/user', {page: page});
     }
 };
 
