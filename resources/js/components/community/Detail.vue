@@ -116,11 +116,17 @@
                 this.panel = panel === this.panel ? '' : panel;
             },
             attention() {
-                api.payAttentionToCommunity(this.community.id);
+                api.payAttentionToCommunity(this.community.id).then((result) => {
+                    if (result.code === 200) {
+                        this.community.isAttention = 1;
+                    }
+                });
             },
             signIn() {
-                api.signToCommunity(this.community.id).then((result)=>{
-                    this.community.isSignIn = 1;
+                api.signToCommunity(this.community.id).then((result) => {
+                    if (result.code === 200) {
+                        this.community.isSignIn = 1;
+                    }
                 });
             }
         },

@@ -2694,18 +2694,26 @@ __webpack_require__.r(__webpack_exports__);
       this.panel = panel === this.panel ? '' : panel;
     },
     attention: function attention() {
-      _api__WEBPACK_IMPORTED_MODULE_0__["default"].payAttentionToCommunity(this.community.id);
-    },
-    signIn: function signIn() {
       var _this = this;
 
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].payAttentionToCommunity(this.community.id).then(function (result) {
+        if (result.code === 200) {
+          _this.community.isAttention = 1;
+        }
+      });
+    },
+    signIn: function signIn() {
+      var _this2 = this;
+
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].signToCommunity(this.community.id).then(function (result) {
-        _this.community.isSignIn = 1;
+        if (result.code === 200) {
+          _this2.community.isSignIn = 1;
+        }
       });
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     // if (this.$route.path.endsWith('/explore')) {
     //     this.active = 0;
@@ -2718,7 +2726,7 @@ __webpack_require__.r(__webpack_exports__);
     // }
     _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityDetail(this.$route.query.id).then(function (json) {
       if (json.code === 200) {
-        _this2.community = json.data;
+        _this3.community = json.data;
       }
     });
   }
