@@ -2,7 +2,9 @@
     <mu-container ref="container">
         <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
             <mu-list>
-                <mu-list-item style="margin-bottom: 10px" v-for="(user,index) in userList" avatar ripple button :key="index">
+                <mu-list-item style="margin-bottom: 10px" v-for="(user,index) in userList"
+                              :to="{path:'/user/info',query:{id:user.id}}" avatar ripple button
+                              :key="index">
                     <mu-list-item-action>
                         <mu-avatar>
                             <img v-lazy="user.avatar">

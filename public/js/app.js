@@ -3177,6 +3177,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Student",
@@ -21629,7 +21631,12 @@ var render = function() {
                 {
                   key: index,
                   staticStyle: { "margin-bottom": "10px" },
-                  attrs: { avatar: "", ripple: "", button: "" }
+                  attrs: {
+                    to: { path: "/user/info", query: { id: user.id } },
+                    avatar: "",
+                    ripple: "",
+                    button: ""
+                  }
                 },
                 [
                   _c(
