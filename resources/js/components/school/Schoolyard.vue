@@ -5,7 +5,7 @@
                 <mu-card class="school" v-for="(school,index) in schoolList" :key="index">
                     <router-link :to="{path:'/school/detail',query:{id:school.id}}">
                         <mu-card-media>
-                            <img src="/school.png">
+                            <img v-lazy="school.schoolLogo">
                         </mu-card-media>
                         <mu-card-title :sub-title="school.schoolDescription" :title="school.schoolName"
                                        style="text-align: center"></mu-card-title>

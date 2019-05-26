@@ -21359,7 +21359,16 @@ var render = function() {
                     },
                     [
                       _c("mu-card-media", [
-                        _c("img", { attrs: { src: "/school.png" } })
+                        _c("img", {
+                          directives: [
+                            {
+                              name: "lazy",
+                              rawName: "v-lazy",
+                              value: school.schoolLogo,
+                              expression: "school.schoolLogo"
+                            }
+                          ]
+                        })
                       ]),
                       _vm._v(" "),
                       _c("mu-card-title", {

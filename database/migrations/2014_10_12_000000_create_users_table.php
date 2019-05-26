@@ -20,7 +20,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
-
+            $table->unsignedInteger('school_id')
+                ->default(0)
+                ->index()
+                ->comment('校园id');
             $table->string('api_token')->nullable()->unique();
 
             $table->rememberToken();
