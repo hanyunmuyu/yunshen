@@ -57,7 +57,9 @@ class Community extends Migration
             $table->unsignedInteger('attention_number')
                 ->default(1)
                 ->comment('关注数量');
-
+            $table->unsignedTinyInteger('star')
+                ->default(4)
+                ->comment('社团活跃星级');
 
             $table->unsignedTinyInteger('status')
                 ->default(1)

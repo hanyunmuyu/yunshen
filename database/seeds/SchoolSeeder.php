@@ -29,7 +29,7 @@ class SchoolSeeder extends Seeder
             $data['school_code'] = $school->school_code;
             $data['level'] = $school->level;
             $data['note'] = $school->note ? $school->note : '';
-            $data['school_description'] = 'school_description';
+            $data['school_description'] = '明德求是拓新笃行';
             $data['school_logo'] = 'school.jpg';
             $data['user_number'] = $key * 10 + 1;
             $data['community_number'] = $key + 1;

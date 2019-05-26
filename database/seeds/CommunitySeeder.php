@@ -16,11 +16,11 @@ class CommunitySeeder extends Seeder
         $categories = \App\Models\Category::count();
         foreach ($userList as $key => $user) {
             $data = [];
-            $data['community_name'] = 'community---' . $key;
+            $data['community_name'] = '羽毛球社团' . $key;
             $data['school_id'] = $user->school_id;
             $data['user_id'] = $user->id;
             $data['community_logo'] = 'community.jpg';
-            $data['description'] = 'community---' . $key;
+            $data['description'] = '羽毛球社团。。。。' . $key;
             $community = \App\Models\Community::firstOrCreate($data);
             if ($community) {
                 $categoryList = range(1, $categories);

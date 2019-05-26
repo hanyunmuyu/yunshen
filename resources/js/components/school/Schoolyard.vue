@@ -45,17 +45,21 @@
         },
         methods: {
             refresh() {
-                this.refreshing = true;
-                this.$refs.container.scrollTop = 0;
-                this.currentPage = 1;
-                setTimeout(() => {
-                    this.refreshing = false;
+
+                if (!this.refreshing) {
+                    this.refreshing = true;
+                    this.$refs.container.scrollTop = 0;
+                    this.currentPage = 1;
+                    setTimeout(() => {
+                        this.refreshing = false;
+                    }, 500);
                     api.getSchoolList().then((schoolList) => {
                         this.schoolList = schoolList.data.data;
                         this.lastPage = schoolList.data.lastPage;
                         this.currentPage = schoolList.data.currentPage;
+                        this.refreshing = false;
                     })
-                }, 2000)
+                }
             },
             load() {
                 this.loading = true;
@@ -72,12 +76,7 @@
             }
         },
         mounted() {
-            api.getSchoolList().then((schoolList) => {
-                console.log(schoolList);
-                this.schoolList = schoolList.data.data;
-                this.lastPage = schoolList.data.lastPage;
-                this.currentPage = schoolList.data.currentPage;
-            })
+            this.refresh()
         }
     }
 </script>

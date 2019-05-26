@@ -64,6 +64,12 @@ export default {
         }
         return get('api/v1/school', {page: page});
     },
+    getCommunityList: function (page) {
+        if (page === undefined) {
+            page = 1;
+        }
+        return get('api/v1/community', {page: page});
+    },
     getSchoolDetail: function (id) {
         return get('api/v1/school/detail', {id: id});
     }

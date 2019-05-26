@@ -19,7 +19,7 @@ Vue.use(VueRouter);
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     error: '/login.png',
-    loading: '/login.png',
+    loading: '/loading.gif',
     attempt: 3
 });
 /**

@@ -17,6 +17,7 @@ class Community extends Model
         'community_logo',
         'deal_reason',
         'status',
+        'star',
 
     ];
 

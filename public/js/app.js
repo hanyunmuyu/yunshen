@@ -2791,6 +2791,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/js/api/index.js");
 //
 //
 //
@@ -2815,8 +2816,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Community"
+  name: "Community",
+  data: function data() {
+    return {
+      communityList: [],
+      currentPage: 1,
+      lastPage: 1,
+      refreshing: false,
+      loading: false
+    };
+  },
+  methods: {
+    refresh: function refresh() {
+      var _this = this;
+
+      this.refreshing = true;
+      this.$refs.container.scrollTop = 0;
+      this.currentPage = 1;
+      setTimeout(function () {
+        _this.refreshing = false;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityList(_this.currentPage).then(function (result) {
+          _this.communityList = result.data.data;
+          _this.lastPage = result.data.lastPage;
+          _this.currentPage = result.data.currentPage;
+        });
+      }, 2000);
+    },
+    load: function load() {
+      var _this2 = this;
+
+      this.loading = true;
+      setTimeout(function () {
+        _this2.loading = false;
+        _this2.currentPage++;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityList(_this2.currentPage).then(function (result) {
+          result.data.data.forEach(function (school) {
+            _this2.communityList.push(school);
+          });
+          _this2.currentPage = result.data.currentPage;
+        });
+      }, 2000);
+    }
+  },
+  mounted: function mounted() {
+    this.refresh();
+  }
 });
 
 /***/ }),
@@ -3054,17 +3106,20 @@ __webpack_require__.r(__webpack_exports__);
     refresh: function refresh() {
       var _this = this;
 
-      this.refreshing = true;
-      this.$refs.container.scrollTop = 0;
-      this.currentPage = 1;
-      setTimeout(function () {
-        _this.refreshing = false;
+      if (!this.refreshing) {
+        this.refreshing = true;
+        this.$refs.container.scrollTop = 0;
+        this.currentPage = 1;
+        setTimeout(function () {
+          _this.refreshing = false;
+        }, 500);
         _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolList().then(function (schoolList) {
           _this.schoolList = schoolList.data.data;
           _this.lastPage = schoolList.data.lastPage;
           _this.currentPage = schoolList.data.currentPage;
+          _this.refreshing = false;
         });
-      }, 2000);
+      }
     },
     load: function load() {
       var _this2 = this;
@@ -3083,14 +3138,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
-
-    _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolList().then(function (schoolList) {
-      console.log(schoolList);
-      _this3.schoolList = schoolList.data.data;
-      _this3.lastPage = schoolList.data.lastPage;
-      _this3.currentPage = schoolList.data.currentPage;
-    });
+    this.refresh();
   }
 });
 
@@ -20890,93 +20938,119 @@ var render = function() {
     [
       _c(
         "mu-container",
-        _vm._l(15, function(index) {
-          return _c(
-            "mu-card",
+        { ref: "container" },
+        [
+          _c(
+            "mu-load-more",
             {
-              key: index,
-              staticStyle: {
-                width: "50%",
-                float: "left",
-                padding: "2px",
-                "margin-top": "10px"
-              }
+              attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
+              on: { refresh: _vm.refresh, load: _vm.load }
             },
-            [
-              _c("mu-card-media", [
-                _c("img", { attrs: { src: "/community.jpg" } })
-              ]),
-              _vm._v(" "),
-              _c("mu-card-title", {
-                staticStyle: { "text-align": "center" },
-                attrs: { "sub-title": "", title: "轮滑社团" }
-              }),
-              _vm._v(" "),
-              _c(
-                "mu-flex",
+            _vm._l(_vm.communityList, function(community, index) {
+              return _c(
+                "mu-card",
                 {
-                  staticClass: "flex-wrapper",
-                  attrs: { "align-items": "center" }
+                  key: index,
+                  staticStyle: {
+                    width: "50%",
+                    float: "left",
+                    padding: "2px",
+                    "margin-top": "10px"
+                  }
                 },
                 [
+                  _c("mu-card-media", [
+                    _c("img", {
+                      directives: [
+                        {
+                          name: "lazy",
+                          rawName: "v-lazy",
+                          value: community.communityLogo,
+                          expression: "community.communityLogo"
+                        }
+                      ]
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("mu-card-title", {
+                    staticStyle: { "text-align": "center" },
+                    attrs: { "sub-title": "", title: community.communityName }
+                  }),
+                  _vm._v(" "),
                   _c(
                     "mu-flex",
                     {
-                      staticClass: "flex-demo",
-                      attrs: { "justify-content": "center", fill: "" }
+                      staticClass: "flex-wrapper",
+                      attrs: { "align-items": "center" }
                     },
-                    [_vm._v("社团：100")]
+                    [
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-demo",
+                          attrs: { "justify-content": "center", fill: "" }
+                        },
+                        [_vm._v("成员：" + _vm._s(community.memberNumber))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-demo",
+                          attrs: { "justify-content": "center", fill: "" }
+                        },
+                        [
+                          _vm._v(
+                            "关注：" +
+                              _vm._s(community.attentionNumber) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
                     "mu-flex",
                     {
-                      staticClass: "flex-demo",
-                      attrs: { "justify-content": "center", fill: "" }
+                      staticClass: "flex-wrapper",
+                      attrs: { "align-items": "center" }
                     },
-                    [_vm._v("校友：100")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "mu-flex",
-                {
-                  staticClass: "flex-wrapper",
-                  attrs: { "align-items": "center" }
-                },
-                [
-                  _c(
-                    "mu-flex",
-                    {
-                      staticClass: "flex-demo",
-                      attrs: { "justify-content": "center", fill: "" }
-                    },
-                    [_vm._v("活跃：")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "mu-flex",
-                    {
-                      staticClass: "flex-demo",
-                      attrs: { "justify-content": "center", fill: "" }
-                    },
-                    _vm._l(5, function(s) {
-                      return _c("mu-icon", {
-                        key: s,
-                        attrs: { value: "star", color: "primary" }
-                      })
-                    }),
+                    [
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-demo",
+                          attrs: { "justify-content": "center", fill: "" }
+                        },
+                        [_vm._v("活跃：")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-demo",
+                          attrs: { "justify-content": "center", fill: "" }
+                        },
+                        _vm._l(community.star, function(s) {
+                          return _c("mu-icon", {
+                            key: s,
+                            attrs: { value: "star", color: "primary" }
+                          })
+                        }),
+                        1
+                      )
+                    ],
                     1
                   )
                 ],
                 1
               )
-            ],
+            }),
             1
           )
-        }),
+        ],
         1
       )
     ],
@@ -37676,6 +37750,15 @@ function post(url, params) {
       page: page
     });
   },
+  getCommunityList: function getCommunityList(page) {
+    if (page === undefined) {
+      page = 1;
+    }
+
+    return get('api/v1/community', {
+      page: page
+    });
+  },
   getSchoolDetail: function getSchoolDetail(id) {
     return get('api/v1/school/detail', {
       id: id
@@ -37725,7 +37808,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_lazyload__WEBPACK_IMPORTED_MODULE_7___default.a, {
   preLoad: 1.3,
   error: '/login.png',
-  loading: '/login.png',
+  loading: '/loading.gif',
   attempt: 3
 });
 /**
