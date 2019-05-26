@@ -2838,17 +2838,19 @@ __webpack_require__.r(__webpack_exports__);
     refresh: function refresh() {
       var _this = this;
 
-      this.refreshing = true;
-      this.$refs.container.scrollTop = 0;
-      this.currentPage = 1;
-      setTimeout(function () {
-        _this.refreshing = false;
-        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityList(_this.currentPage).then(function (result) {
+      if (!this.refreshing) {
+        this.refreshing = true;
+        this.$refs.container.scrollTop = 0;
+        this.currentPage = 1;
+        setTimeout(function () {
+          _this.refreshing = false;
+        }, 500);
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityList(this.currentPage).then(function (result) {
           _this.communityList = result.data.data;
           _this.lastPage = result.data.lastPage;
           _this.currentPage = result.data.currentPage;
         });
-      }, 2000);
+      }
     },
     load: function load() {
       var _this2 = this;
