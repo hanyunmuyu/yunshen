@@ -52,6 +52,47 @@
                 </router-link>
             </li>
         </ul>
+        <mu-list>
+            <mu-list-item button to="/" :ripple="false">
+                <mu-list-item-action>
+                    <mu-icon value="domain"></mu-icon>
+                </mu-list-item-action>
+                <mu-list-item-title>我的校园</mu-list-item-title>
+                <mu-list-item-action>
+                    <mu-icon value="keyboard_arrow_right"></mu-icon>
+                </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider shallow-inset></mu-divider>
+            <mu-list-item button :ripple="false">
+                <mu-list-item-action>
+                    <mu-icon value="school"></mu-icon>
+                </mu-list-item-action>
+                <mu-list-item-title>我的学院</mu-list-item-title>
+                <mu-list-item-action>
+                    <mu-icon value="keyboard_arrow_right"></mu-icon>
+                </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider shallow-inset></mu-divider>
+            <mu-list-item button :ripple="false">
+                <mu-list-item-action>
+                    <mu-icon value="group"></mu-icon>
+                </mu-list-item-action>
+                <mu-list-item-title>我的社团</mu-list-item-title>
+                <mu-list-item-action>
+                    <mu-icon value="keyboard_arrow_right"></mu-icon>
+                </mu-list-item-action>
+            </mu-list-item>
+            <mu-divider shallow-inset></mu-divider>
+            <mu-list-item button :ripple="false">
+                <mu-list-item-action>
+                    <mu-icon value="favorite"></mu-icon>
+                </mu-list-item-action>
+                <mu-list-item-title>我的班级</mu-list-item-title>
+                <mu-list-item-action>
+                    <mu-icon value="keyboard_arrow_right"></mu-icon>
+                </mu-list-item-action>
+            </mu-list-item>
+        </mu-list>
     </mu-container>
 </template>
 

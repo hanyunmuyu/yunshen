@@ -31,8 +31,9 @@ class SchoolSeeder extends Seeder
             $data['note'] = $school->note ? $school->note : '';
             $data['school_description'] = 'school_description';
             $data['school_logo'] = 'school.jpg';
-            $data['user_number'] = $key * 10;
-            $data['community_number'] = $key;
+            $data['user_number'] = $key * 10 + 1;
+            $data['community_number'] = $key + 1;
+            $data['star'] = $key % 5 + 1;
             \App\Models\School::create($data);
         }
         unset($json, $schoolList, $area, $provinceMap, $cityMap);

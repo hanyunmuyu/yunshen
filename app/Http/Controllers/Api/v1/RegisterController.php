@@ -16,7 +16,7 @@ class RegisterController extends Controller
         $password = $request->get('password');
         $user = User::where('name', $userName)->first();
         if ($user) {
-            return $this->error();
+            return $this->error('该用户已经注册');
         } else {
             $data['name'] = $userName;
             $pass = encrypt($password);

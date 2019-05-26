@@ -19,6 +19,8 @@ class LoginController extends Controller
                 if (decrypt($user->password) != $password) {
                     return $this->error('密码错误');
                 } else {
+                    $user->api_token = md5(microtime());
+                    $user->save();
                     return $this->success($user->toArray());
                 }
             } catch (\Exception $exception) {

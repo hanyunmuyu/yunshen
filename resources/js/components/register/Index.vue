@@ -18,7 +18,7 @@
                                prop="confirmPassword"></mu-text-field>
             </mu-form-item>
             <mu-form-item>
-                <mu-button color="primary" @click="submit">提交</mu-button>
+                <mu-button :disabled="disabled" color="primary" @click="submit">注册</mu-button>
             </mu-form-item>
         </mu-form>
     </mu-container>
@@ -48,7 +48,8 @@
                     username: 'hanyun',
                     password: '123456',
                     confirmPassword: '123456',
-                }
+                },
+                disabled: false
             }
         },
         methods: {
@@ -56,6 +57,10 @@
                 this.$router.back();
             },
             submit() {
+                this.disabled = true;
+                setTimeout(() => {
+                    this.disabled = false;
+                }, 2000);
                 this.$refs.form.validate().then((result) => {
                     if (result === true) {
                         api.register(this.validateForm).then((v) => {
@@ -64,7 +69,7 @@
                                 // storage.setItem('user', v);
                                 this.$router.back()
                             } else {
-
+                                this.$toast.error(v.msg);
                             }
                         })
                     }

@@ -90,8 +90,11 @@ export default {
     getCommunityHot: function () {
         return get('api/v1/community/hot');
     },
-    getSchoolList: function () {
-        return get('api/v1/school');
+    getSchoolList: function (page) {
+        if (page === undefined) {
+            page = 1;
+        }
+        return get('api/v1/school', {page: page});
     }
 };
 

@@ -16,4 +16,6 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1', 'namespace' => 'v1', 'middleware' => ['api']], function () {
     Route::post('/login', 'LoginController@login');
     Route::post('/register', 'RegisterController@register');
+    //校园列表
+    Route::get('/school', 'SchoolController@index');
 });

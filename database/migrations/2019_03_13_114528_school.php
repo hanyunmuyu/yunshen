@@ -70,6 +70,10 @@ class School extends Migration
                 ->default(1)
                 ->comment('关注人数');
 
+            $table->unsignedTinyInteger('star')
+                ->default(4)
+                ->comment('校园星级');
+
             $table->timestamps();
         });
     }

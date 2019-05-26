@@ -2194,7 +2194,8 @@ __webpack_require__.r(__webpack_exports__);
         username: 'hanyun',
         password: '123456',
         confirmPassword: '123456'
-      }
+      },
+      disabled: false
     };
   },
   methods: {
@@ -2204,6 +2205,10 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
+      this.disabled = true;
+      setTimeout(function () {
+        _this.disabled = false;
+      }, 2000);
       this.$refs.form.validate().then(function (result) {
         if (result === true) {
           _api__WEBPACK_IMPORTED_MODULE_1__["default"].register(_this.validateForm).then(function (v) {
@@ -2212,7 +2217,9 @@ __webpack_require__.r(__webpack_exports__);
             if (v.code === 200) {
               // storage.setItem('user', v);
               _this.$router.back();
-            } else {}
+            } else {
+              _this.$toast.error(v.msg);
+            }
           });
         }
       });
@@ -2351,6 +2358,47 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2947,6 +2995,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/js/api/index.js");
 //
 //
 //
@@ -2972,13 +3021,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Schoolyard",
   data: function data() {
     return {
       active: 0,
-      shift: 'explore'
+      schoolList: [],
+      currentPage: 1,
+      lastPage: 1,
+      refreshing: false,
+      loading: false
     };
+  },
+  methods: {
+    refresh: function refresh() {
+      var _this = this;
+
+      this.refreshing = true;
+      this.$refs.container.scrollTop = 0;
+      this.currentPage = 1;
+      setTimeout(function () {
+        _this.refreshing = false;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolList().then(function (schoolList) {
+          _this.schoolList = schoolList.data.data;
+          _this.lastPage = schoolList.data.lastPage;
+          _this.currentPage = schoolList.data.currentPage;
+        });
+      }, 2000);
+    },
+    load: function load() {
+      var _this2 = this;
+
+      this.loading = true;
+      setTimeout(function () {
+        _this2.loading = false;
+        _this2.currentPage++;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolList(_this2.currentPage).then(function (schoolList) {
+          schoolList.data.data.forEach(function (school) {
+            _this2.schoolList.push(school);
+          });
+          _this2.currentPage = schoolList.data.currentPage;
+        });
+      }, 2000);
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolList().then(function (schoolList) {
+      console.log(schoolList);
+      _this3.schoolList = schoolList.data.data;
+      _this3.lastPage = schoolList.data.lastPage;
+      _this3.currentPage = schoolList.data.currentPage;
+    });
   }
 });
 
@@ -19664,8 +19765,11 @@ var render = function() {
             [
               _c(
                 "mu-button",
-                { attrs: { color: "primary" }, on: { click: _vm.submit } },
-                [_vm._v("提交")]
+                {
+                  attrs: { disabled: _vm.disabled, color: "primary" },
+                  on: { click: _vm.submit }
+                },
+                [_vm._v("注册")]
               )
             ],
             1
@@ -20006,7 +20110,103 @@ var render = function() {
           ],
           1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "mu-list",
+        [
+          _c(
+            "mu-list-item",
+            { attrs: { button: "", to: "/", ripple: false } },
+            [
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "domain" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("mu-list-item-title", [_vm._v("我的校园")]),
+              _vm._v(" "),
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "keyboard_arrow_right" } })],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("mu-divider", { attrs: { "shallow-inset": "" } }),
+          _vm._v(" "),
+          _c(
+            "mu-list-item",
+            { attrs: { button: "", ripple: false } },
+            [
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "school" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("mu-list-item-title", [_vm._v("我的学院")]),
+              _vm._v(" "),
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "keyboard_arrow_right" } })],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("mu-divider", { attrs: { "shallow-inset": "" } }),
+          _vm._v(" "),
+          _c(
+            "mu-list-item",
+            { attrs: { button: "", ripple: false } },
+            [
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "group" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("mu-list-item-title", [_vm._v("我的社团")]),
+              _vm._v(" "),
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "keyboard_arrow_right" } })],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("mu-divider", { attrs: { "shallow-inset": "" } }),
+          _vm._v(" "),
+          _c(
+            "mu-list-item",
+            { attrs: { button: "", ripple: false } },
+            [
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "favorite" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c("mu-list-item-title", [_vm._v("我的班级")]),
+              _vm._v(" "),
+              _c(
+                "mu-list-item-action",
+                [_c("mu-icon", { attrs: { value: "keyboard_arrow_right" } })],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -21116,84 +21316,104 @@ var render = function() {
     [
       _c(
         "mu-container",
-        _vm._l(15, function(index) {
-          return _c(
-            "mu-card",
-            { key: index, staticClass: "school" },
-            [
-              _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: { path: "/school/detail", query: { id: index } }
-                  }
-                },
+        { ref: "container" },
+        [
+          _c(
+            "mu-load-more",
+            {
+              attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
+              on: { refresh: _vm.refresh, load: _vm.load }
+            },
+            _vm._l(_vm.schoolList, function(school, index) {
+              return _c(
+                "mu-card",
+                { key: index, staticClass: "school" },
                 [
-                  _c("mu-card-media", [
-                    _c("img", { attrs: { src: "/school.png" } })
-                  ]),
-                  _vm._v(" "),
-                  _c("mu-card-title", {
-                    staticStyle: { "text-align": "center" },
-                    attrs: { "sub-title": "", title: "河南工业大学" }
-                  }),
-                  _vm._v(" "),
                   _c(
-                    "mu-flex",
+                    "router-link",
                     {
-                      staticClass: "flex-wrapper",
-                      attrs: { "align-items": "center" }
+                      attrs: {
+                        to: { path: "/school/detail", query: { id: school.id } }
+                      }
                     },
                     [
+                      _c("mu-card-media", [
+                        _c("img", { attrs: { src: "/school.png" } })
+                      ]),
+                      _vm._v(" "),
+                      _c("mu-card-title", {
+                        staticStyle: { "text-align": "center" },
+                        attrs: {
+                          "sub-title": school.schoolDescription,
+                          title: school.schoolName
+                        }
+                      }),
+                      _vm._v(" "),
                       _c(
                         "mu-flex",
                         {
-                          staticClass: "flex-demo",
-                          attrs: { "justify-content": "center", fill: "" }
+                          staticClass: "flex-wrapper",
+                          attrs: { "align-items": "center" }
                         },
-                        [_vm._v("社团：100")]
+                        [
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [
+                              _vm._v(
+                                "社团：" +
+                                  _vm._s(school.communityNumber) +
+                                  "\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [_vm._v("校友：" + _vm._s(school.userNumber))]
+                          )
+                        ],
+                        1
                       ),
                       _vm._v(" "),
                       _c(
                         "mu-flex",
                         {
-                          staticClass: "flex-demo",
-                          attrs: { "justify-content": "center", fill: "" }
+                          staticClass: "flex-wrapper",
+                          attrs: { "align-items": "center" }
                         },
-                        [_vm._v("校友：100")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "mu-flex",
-                    {
-                      staticClass: "flex-wrapper",
-                      attrs: { "align-items": "center" }
-                    },
-                    [
-                      _c(
-                        "mu-flex",
-                        {
-                          staticClass: "flex-demo",
-                          attrs: { "justify-content": "center", fill: "" }
-                        },
-                        [_vm._v("星级：")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "mu-flex",
-                        {
-                          staticClass: "flex-demo",
-                          attrs: { "justify-content": "center", fill: "" }
-                        },
-                        _vm._l(4, function(s) {
-                          return _c("mu-icon", {
-                            key: s,
-                            attrs: { value: "star", color: "primary" }
-                          })
-                        }),
+                        [
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [_vm._v("星级：")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            _vm._l(school.star, function(s) {
+                              return _c("mu-icon", {
+                                key: s,
+                                attrs: { value: "star", color: "primary" }
+                              })
+                            }),
+                            1
+                          )
+                        ],
                         1
                       )
                     ],
@@ -21202,10 +21422,10 @@ var render = function() {
                 ],
                 1
               )
-            ],
+            }),
             1
           )
-        }),
+        ],
         1
       )
     ],
@@ -37453,8 +37673,14 @@ function post(url, params) {
   getCommunityHot: function getCommunityHot() {
     return get('api/v1/community/hot');
   },
-  getSchoolList: function getSchoolList() {
-    return get('api/v1/school');
+  getSchoolList: function getSchoolList(page) {
+    if (page === undefined) {
+      page = 1;
+    }
+
+    return get('api/v1/school', {
+      page: page
+    });
   }
 });
 
