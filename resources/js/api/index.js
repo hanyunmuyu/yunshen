@@ -48,29 +48,8 @@ function post(url, params) {
 }
 
 export default {
-    getNewsRecommend: function (params) {
-        return get('api/v1/index', {
-            params: params
-        });
-    },
-    // 列表接口
-    getNewsLists: function (params) {
-        return get('api/news', {
-            params: params
-        });
-    },
-    // 详情接口
-    getNewsDetail: function (id) {
-        return axios.get('api/news/' + id);
-    },
     login: function (params) {
         return post('api/v1/login', params);
-    },
-    getUserList: function (page) {
-        if (page === undefined) {
-            page = 1;
-        }
-        return get('api/v1/user', {page: page});
     },
     payAttention: function (friendId) {
         return post('api/v1/user/payAttention', {id: friendId});
@@ -78,23 +57,15 @@ export default {
     register: function (params) {
         return post('api/v1/register', params);
     },
-    code: function () {
-        return post('api/v1/user/code');
-    },
-    createGroup: function (params) {
-        return post('api/v1/community/create', params);
-    },
-    getCategories: function () {
-        return get('api/v1/community/category');
-    },
-    getCommunityHot: function () {
-        return get('api/v1/community/hot');
-    },
+
     getSchoolList: function (page) {
         if (page === undefined) {
             page = 1;
         }
         return get('api/v1/school', {page: page});
+    },
+    getSchoolDetail: function (id) {
+        return get('api/v1/school/detail', {id: id});
     }
 };
 

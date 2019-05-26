@@ -4,7 +4,7 @@
             <mu-button icon slot="left" @click="back">
                 <mu-icon value="arrow_back"></mu-icon>
             </mu-button>
-            <div style="text-align: center;margin: 0 auto">河南工业大学</div>
+            <div style="text-align: center;margin: 0 auto">{{school.schoolName}}</div>
             <mu-menu slot="right">
                 <mu-button flat>
                     <mu-icon value="more_vert"></mu-icon>
@@ -29,17 +29,17 @@
             </mu-menu>
         </mu-appbar>
         <div style="width: 100%;display: flex;align-items: center;margin: 10px">
-            <img id="logo" src="/school.png">
+            <img id="logo" v-lazy="school.schoolLogo">
             <div style="margin-left: 10px">
-                <div>校友：100</div>
-                <div>社团：100</div>
-                <div>关注：100</div>
+                <div>校友：{{school.userNumber}}</div>
+                <div>社团：{{school.communityNumber}}</div>
+                <div>关注：{{school.attentionNumber}}</div>
             </div>
             <div style="flex: 1">
                 <mu-button round small color="primary" style="float: right;">关注</mu-button>
             </div>
         </div>
-        <div style="margin-top: 6px">明德求是拓新笃行</div>
+        <div style="margin-top: 6px">{{school.schoolDescription}}</div>
         <div>
             <mu-expansion-panel :expand="panel === 'panel1'" @change="toggle('panel1')">
                 <div slot="header">社团推荐</div>
@@ -70,13 +70,16 @@
 </template>
 
 <script>
+    import api from '../../../api'
+
     export default {
         name: "Index",
         data() {
             return {
                 active: 0,
                 shift: 'explore',
-                panel: ''
+                panel: '',
+                school: {}
             };
         },
         methods: {
@@ -117,6 +120,11 @@
             // } else if (this.$route.path.startsWith('/explore/activity')) {
             //     this.active = 3;
             // }
+            api.getSchoolDetail(1).then((school) => {
+                if (school.code === 200) {
+                    this.school = school.data;
+                }
+            })
         },
     }
 </script>

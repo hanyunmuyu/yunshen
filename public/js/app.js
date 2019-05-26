@@ -2830,6 +2830,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../api */ "./resources/js/api/index.js");
 //
 //
 //
@@ -2901,13 +2902,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Index",
   data: function data() {
     return {
       active: 0,
       shift: 'explore',
-      panel: ''
+      panel: '',
+      school: {}
     };
   },
   methods: {
@@ -2937,7 +2940,10 @@ __webpack_require__.r(__webpack_exports__);
       this.panel = panel === this.panel ? '' : panel;
     }
   },
-  mounted: function mounted() {// if (this.$route.path.endsWith('/explore')) {
+  mounted: function mounted() {
+    var _this = this;
+
+    // if (this.$route.path.endsWith('/explore')) {
     //     this.active = 0;
     // } else if (this.$route.path.startsWith('/explore/recommend')) {
     //     this.active = 1;
@@ -2946,6 +2952,11 @@ __webpack_require__.r(__webpack_exports__);
     // } else if (this.$route.path.startsWith('/explore/activity')) {
     //     this.active = 3;
     // }
+    _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolDetail(1).then(function (school) {
+      if (school.code === 200) {
+        _this.school = school.data;
+      }
+    });
   }
 });
 
@@ -21018,7 +21029,7 @@ var render = function() {
           _c(
             "div",
             { staticStyle: { "text-align": "center", margin: "0 auto" } },
-            [_vm._v("河南工业大学")]
+            [_vm._v(_vm._s(_vm.school.schoolName))]
           ),
           _vm._v(" "),
           _c(
@@ -21095,14 +21106,24 @@ var render = function() {
           }
         },
         [
-          _c("img", { attrs: { id: "logo", src: "/school.png" } }),
+          _c("img", {
+            directives: [
+              {
+                name: "lazy",
+                rawName: "v-lazy",
+                value: _vm.school.schoolLogo,
+                expression: "school.schoolLogo"
+              }
+            ],
+            attrs: { id: "logo" }
+          }),
           _vm._v(" "),
           _c("div", { staticStyle: { "margin-left": "10px" } }, [
-            _c("div", [_vm._v("校友：100")]),
+            _c("div", [_vm._v("校友：" + _vm._s(_vm.school.userNumber))]),
             _vm._v(" "),
-            _c("div", [_vm._v("社团：100")]),
+            _c("div", [_vm._v("社团：" + _vm._s(_vm.school.communityNumber))]),
             _vm._v(" "),
-            _c("div", [_vm._v("关注：100")])
+            _c("div", [_vm._v("关注：" + _vm._s(_vm.school.attentionNumber))])
           ]),
           _vm._v(" "),
           _c(
@@ -21124,7 +21145,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticStyle: { "margin-top": "6px" } }, [
-        _vm._v("明德求是拓新笃行")
+        _vm._v(_vm._s(_vm.school.schoolDescription))
       ]),
       _vm._v(" "),
       _c(
@@ -37626,32 +37647,8 @@ function post(url, params) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  getNewsRecommend: function getNewsRecommend(params) {
-    return get('api/v1/index', {
-      params: params
-    });
-  },
-  // 列表接口
-  getNewsLists: function getNewsLists(params) {
-    return get('api/news', {
-      params: params
-    });
-  },
-  // 详情接口
-  getNewsDetail: function getNewsDetail(id) {
-    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/news/' + id);
-  },
   login: function login(params) {
     return post('api/v1/login', params);
-  },
-  getUserList: function getUserList(page) {
-    if (page === undefined) {
-      page = 1;
-    }
-
-    return get('api/v1/user', {
-      page: page
-    });
   },
   payAttention: function payAttention(friendId) {
     return post('api/v1/user/payAttention', {
@@ -37661,18 +37658,6 @@ function post(url, params) {
   register: function register(params) {
     return post('api/v1/register', params);
   },
-  code: function code() {
-    return post('api/v1/user/code');
-  },
-  createGroup: function createGroup(params) {
-    return post('api/v1/community/create', params);
-  },
-  getCategories: function getCategories() {
-    return get('api/v1/community/category');
-  },
-  getCommunityHot: function getCommunityHot() {
-    return get('api/v1/community/hot');
-  },
   getSchoolList: function getSchoolList(page) {
     if (page === undefined) {
       page = 1;
@@ -37680,6 +37665,11 @@ function post(url, params) {
 
     return get('api/v1/school', {
       page: page
+    });
+  },
+  getSchoolDetail: function getSchoolDetail(id) {
+    return get('api/v1/school/detail', {
+      id: id
     });
   }
 });
