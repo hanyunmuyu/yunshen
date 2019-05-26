@@ -3,16 +3,24 @@
         <mu-appbar style="width: 100%;" color="primary" textColor="white">
             <div style="text-align: center;margin: 0 auto">我的</div>
         </mu-appbar>
-        <div id="user-header">
+        <div class="user-header" v-if="user===null">
             <mu-avatar style="margin:10px">
-                <img src="/avatar.jpg">
+                <img src="/login.png">
+            </mu-avatar>
+            <div>
+                <mu-button flat to="/login">未登录</mu-button>
+            </div>
+        </div>
+        <div class="user-header" v-else>
+            <mu-avatar style="margin:10px">
+                <img v-lazy="user.avatar">
             </mu-avatar>
             <div>
                 <div>我想静静</div>
                 <div>我想静静</div>
             </div>
             <div style="flex: 1;float: right;text-align:end">
-                <mu-button flat>
+                <mu-button flat :to="{path:'/user/info'}">
                     个人信息
                     <mu-icon value="keyboard_arrow_right"></mu-icon>
                 </mu-button>
@@ -49,12 +57,26 @@
 
 <script>
     export default {
-        name: "Index"
+        name: "Index",
+        data() {
+            return {
+                user: null
+            }
+        },
+        mounted() {
+            let user = this.$store.state.user;
+            if (user === null) {
+                // this.$router.push('/login');
+                this.$data.user = user;
+            } else {
+                this.$data.user = user;
+            }
+        }
     }
 </script>
 
 <style lang="scss">
-    #user-header {
+    .user-header {
         width: 100%;
         display: flex;
         align-items: Center;

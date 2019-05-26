@@ -6,14 +6,22 @@
 import Vue from 'vue';
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
-import theme from 'muse-ui/lib/theme';
 import VueRouter from 'vue-router'
 import router from './router';
+import store from './store';
+import Toast from 'muse-ui-toast';
+import VueLazyload from 'vue-lazyload';
+
 window.Vue = require('vue');
 Vue.use(MuseUI);
-theme.use('light');
-Vue.use(VueRouter)
-
+Vue.use(Toast);
+Vue.use(VueRouter);
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    error: '/login.png',
+    loading: '/login.png',
+    attempt: 3
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -36,4 +44,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router,
+    store,
 });

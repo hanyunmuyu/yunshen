@@ -14,6 +14,7 @@ import Student from '../components/school/Student';
 import Question from '../components/school/Question';
 import User from '../components/User';
 import UserAttention from '../components/user/Attention';
+import UserInfo from '../components/user/Info';
 import UserFan from '../components/user/Fan';
 import UserCommunity from '../components/user/Community';
 import UserQuestion from '../components/user/Question';
@@ -21,6 +22,8 @@ import Encounter from '../components/Encounter';
 import Search from '../components/Search';
 import Chat from '../components/message/Chat';
 import Message from '../components/Message';
+import Register from '../components/Register';
+import Login from '../components/Login';
 
 Vue.use(Router)
 export default new Router({
@@ -117,8 +120,20 @@ export default new Router({
             component: UserQuestion,
         },
         {
+            path: '/user/info',
+            component: UserInfo,
+        },
+        {
             path: '/school/detail',
             component: SchoolDetail,
+        },
+        {
+            path: '/register',
+            component: Register,
+        },
+        {
+            path: '/login',
+            component: Login,
         },
     ]
 });
