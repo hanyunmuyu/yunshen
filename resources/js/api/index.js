@@ -73,6 +73,12 @@ export default {
     getCommunityDetail: function (id) {
         return get('api/v1/community/detail', {id: id});
     },
+    payAttentionToCommunity: function (id) {
+        return post('api/v1/community/attention', {communityId: id});
+    },
+    signToCommunity: function (id) {
+        return post('api/v1/community/sign', {communityId: id});
+    },
     getSchoolDetail: function (id) {
         return get('api/v1/school/detail', {id: id});
     },

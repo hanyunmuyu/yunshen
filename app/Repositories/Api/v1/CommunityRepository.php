@@ -9,6 +9,8 @@
 namespace App\Repositories\Api\v1;
 
 use App\Models\Community;
+use App\Models\CommunityUser;
+use App\Models\CommunityUserSign;
 
 class CommunityRepository
 {
@@ -21,5 +23,35 @@ class CommunityRepository
     public function getCommunityById($communityId)
     {
         return Community::find($communityId);
+    }
+
+    public function payAttentionToCommunity($userId, $communityId)
+    {
+        $data['user_id'] = $userId;
+        $data['community_id'] = $communityId;
+        return CommunityUser::create($data);
+    }
+
+    public function findCommunityUser($userId, $communityId)
+    {
+        $data['user_id'] = $userId;
+        $data['community_id'] = $communityId;
+        return CommunityUser::where($data)->first();
+    }
+
+    public function signIn($userId, $communityId)
+    {
+        $data['user_id'] = $userId;
+        $data['community_id'] = $communityId;
+        return CommunityUserSign::create($data);
+    }
+
+    public function findCommunityUserSign($userId, $communityId)
+    {
+        $data['user_id'] = $userId;
+        $data['community_id'] = $communityId;
+        return CommunityUserSign::where($data)
+            ->whereDate('updated_at', date('Y-m-d'))
+            ->first();
     }
 }

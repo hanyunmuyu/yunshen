@@ -2650,6 +2650,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CommunityDetail",
@@ -2686,10 +2692,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggle: function toggle(panel) {
       this.panel = panel === this.panel ? '' : panel;
+    },
+    attention: function attention() {
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].payAttentionToCommunity(this.community.id);
+    },
+    signIn: function signIn() {
+      var _this = this;
+
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].signToCommunity(this.community.id).then(function (result) {
+        _this.community.isSignIn = 1;
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     // if (this.$route.path.endsWith('/explore')) {
     //     this.active = 0;
@@ -2702,7 +2718,7 @@ __webpack_require__.r(__webpack_exports__);
     // }
     _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityDetail(this.$route.query.id).then(function (json) {
       if (json.code === 200) {
-        _this.community = json.data;
+        _this2.community = json.data;
       }
     });
   }
@@ -21013,14 +21029,34 @@ var render = function() {
             "div",
             { staticStyle: { flex: "1" } },
             [
-              _c(
-                "mu-button",
-                {
-                  staticStyle: { float: "right" },
-                  attrs: { round: "", small: "", color: "primary" }
-                },
-                [_vm._v("关注")]
-              )
+              _vm.community.isAttention === 0
+                ? _c(
+                    "mu-button",
+                    {
+                      staticStyle: { float: "right" },
+                      attrs: { round: "", small: "", color: "primary" },
+                      on: { click: _vm.attention }
+                    },
+                    [_vm._v("关注\n            ")]
+                  )
+                : _vm.community.isSignIn === 0
+                ? _c(
+                    "mu-button",
+                    {
+                      staticStyle: { float: "right" },
+                      attrs: { round: "", small: "", color: "primary" },
+                      on: { click: _vm.signIn }
+                    },
+                    [_vm._v("签到\n            ")]
+                  )
+                : _c(
+                    "mu-button",
+                    {
+                      staticStyle: { float: "right" },
+                      attrs: { round: "", small: "" }
+                    },
+                    [_vm._v("已签到")]
+                  )
             ],
             1
           )
@@ -38591,6 +38627,16 @@ function post(url, params) {
   getCommunityDetail: function getCommunityDetail(id) {
     return get('api/v1/community/detail', {
       id: id
+    });
+  },
+  payAttentionToCommunity: function payAttentionToCommunity(id) {
+    return post('api/v1/community/attention', {
+      communityId: id
+    });
+  },
+  signToCommunity: function signToCommunity(id) {
+    return post('api/v1/community/sign', {
+      communityId: id
     });
   },
   getSchoolDetail: function getSchoolDetail(id) {

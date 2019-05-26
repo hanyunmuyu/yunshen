@@ -35,7 +35,13 @@
                 <div>关注：{{community.attentionNumber}}</div>
             </div>
             <div style="flex: 1">
-                <mu-button round small color="primary" style="float: right;">关注</mu-button>
+                <mu-button v-if="community.isAttention===0" @click="attention" round small color="primary"
+                           style="float: right;">关注
+                </mu-button>
+                <mu-button v-else-if="community.isSignIn===0" @click="signIn" round small color="primary"
+                           style="float: right;">签到
+                </mu-button>
+                <mu-button v-else round small style="float: right;">已签到</mu-button>
             </div>
         </div>
         <div style="margin: 6px;">标签：
@@ -108,6 +114,14 @@
             },
             toggle(panel) {
                 this.panel = panel === this.panel ? '' : panel;
+            },
+            attention() {
+                api.payAttentionToCommunity(this.community.id);
+            },
+            signIn() {
+                api.signToCommunity(this.community.id).then((result)=>{
+                    this.community.isSignIn = 1;
+                });
             }
         },
         mounted() {

@@ -26,4 +26,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1', 'middleware' => ['api']], f
     Route::get('/community/detail', 'CommunityController@detail');
     //用户列表
     Route::get('/user', 'UserController@index');
+    Route::group(['middleware' => ['api.auth']], function () {
+        //关注社团
+        Route::post('/community/attention', 'CommunityController@attention');
+        //社团签到
+        Route::post('/community/sign', 'CommunityController@sign');
+    });
 });
