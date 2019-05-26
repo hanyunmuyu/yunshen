@@ -18,4 +18,8 @@ class CommunityRepository
             ->paginate();
     }
 
+    public function getCommunityById($communityId)
+    {
+        return Community::find($communityId);
+    }
 }

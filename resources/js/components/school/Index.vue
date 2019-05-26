@@ -11,7 +11,9 @@
                 <mu-icon value="search"></mu-icon>
             </mu-button>
         </mu-appbar>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </template>
 

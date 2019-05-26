@@ -1,6 +1,27 @@
 <template>
     <mu-container>
-        <mu-carousel :active="active">
+        <mu-appbar style="width: 100%;" color="primary" textColor="white">
+            <div style="text-align: center;margin: 0 auto">邂逅</div>
+            <mu-menu slot="right">
+                <mu-button flat>
+                    <mu-icon value="more_vert"></mu-icon>
+                </mu-button>
+                <mu-list slot="content">
+                    <mu-list-item button>
+                        <mu-list-item-content>
+                            <mu-list-item-title>分享</mu-list-item-title>
+                        </mu-list-item-content>
+                    </mu-list-item>
+                    <mu-list-item button>
+                        <mu-list-item-content>
+                            <mu-list-item-title>举报</mu-list-item-title>
+                        </mu-list-item-content>
+                    </mu-list-item>
+                </mu-list>
+            </mu-menu>
+        </mu-appbar>
+
+        <mu-carousel :active="active" style="margin-top: 10px">
             <template slot="indicator" slot-scope="{ index, active }">
                 <mu-button icon class="mu-carousel-indicator-button"
                            :class="{'mu-carousel-indicator-button__active': active}" @click="changeActive(index)">

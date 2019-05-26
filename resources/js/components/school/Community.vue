@@ -2,24 +2,28 @@
     <div>
         <mu-container ref="container">
             <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
-                <mu-card v-for="(community,index) in communityList"
+                <mu-card class="community" v-for="(community,index) in communityList"
                          style="width: 50%; float: left;padding: 2px;margin-top: 10px" :key="index">
-                    <mu-card-media>
-                        <img v-lazy="community.communityLogo">
-                    </mu-card-media>
-                    <mu-card-title sub-title="" :title="community.communityName"
-                                   style="text-align: center"></mu-card-title>
-                    <mu-flex class="flex-wrapper" align-items="center">
-                        <mu-flex class="flex-demo" justify-content="center" fill>成员：{{community.memberNumber}}</mu-flex>
-                        <mu-flex class="flex-demo" justify-content="center" fill>关注：{{community.attentionNumber}}
+                    <router-link :to="{path:'/community/detail',query:{id:community.id}}">
+
+                        <mu-card-media>
+                            <img v-lazy="community.communityLogo">
+                        </mu-card-media>
+                        <mu-card-title sub-title="" :title="community.communityName"
+                                       style="text-align: center"></mu-card-title>
+                        <mu-flex class="flex-wrapper" align-items="center">
+                            <mu-flex class="flex-demo" justify-content="center" fill>成员：{{community.memberNumber}}
+                            </mu-flex>
+                            <mu-flex class="flex-demo" justify-content="center" fill>关注：{{community.attentionNumber}}
+                            </mu-flex>
                         </mu-flex>
-                    </mu-flex>
-                    <mu-flex class="flex-wrapper" align-items="center">
-                        <mu-flex class="flex-demo" justify-content="center" fill>活跃：</mu-flex>
-                        <mu-flex class="flex-demo" justify-content="center" fill>
-                            <mu-icon v-for="s in community.star" value="star" color="primary" :key="s"></mu-icon>
+                        <mu-flex class="flex-wrapper" align-items="center">
+                            <mu-flex class="flex-demo" justify-content="center" fill>活跃：</mu-flex>
+                            <mu-flex class="flex-demo" justify-content="center" fill>
+                                <mu-icon v-for="s in community.star" value="star" color="primary" :key="s"></mu-icon>
+                            </mu-flex>
                         </mu-flex>
-                    </mu-flex>
+                    </router-link>
 
                 </mu-card>
             </mu-load-more>
@@ -79,6 +83,18 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+    .community {
+        width: 50%;
+        float: left;
+        padding: 2px;
+        margin-top: 10px;
 
+        a {
+            &:link, &:hover, &:active, &:visited {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
 </style>

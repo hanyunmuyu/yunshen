@@ -4,7 +4,7 @@
             <mu-button icon slot="left" @click="back">
                 <mu-icon value="arrow_back"></mu-icon>
             </mu-button>
-            <div style="text-align: center;margin: 0 auto">{{school.schoolName}}</div>
+            <div style="text-align: center;margin: 0 auto">{{community.communityName}}</div>
             <mu-menu slot="right">
                 <mu-button flat>
                     <mu-icon value="more_vert"></mu-icon>
@@ -29,54 +29,57 @@
             </mu-menu>
         </mu-appbar>
         <div style="width: 100%;display: flex;align-items: center;margin: 10px">
-            <img id="logo" v-lazy="school.schoolLogo">
+            <img id="logo" v-lazy="community.communityLogo">
             <div style="margin-left: 10px">
-                <div>校友：{{school.userNumber}}</div>
-                <div>社团：{{school.communityNumber}}</div>
-                <div>关注：{{school.attentionNumber}}</div>
+                <div>成员：{{community.memberNumber}}</div>
+                <div>关注：{{community.attentionNumber}}</div>
             </div>
             <div style="flex: 1">
                 <mu-button round small color="primary" style="float: right;">关注</mu-button>
             </div>
         </div>
+        <div style="margin: 6px;">标签：
+            <mu-chip color="primary">运动</mu-chip>
+            <mu-chip color="primary">球类</mu-chip>
+            <mu-chip color="primary">交友</mu-chip>
+        </div>
         <div>
             <mu-expansion-panel :expand="panel === 'panel1'" @change="toggle('panel1')">
-                <div slot="header">社团推荐</div>
+                <div slot="header">友情社团</div>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet
                 blandit
                 leo lobortis eget.
             </mu-expansion-panel>
             <mu-expansion-panel :expand="panel === 'panel2'" @change="toggle('panel2')">
-                <div slot="header">通知公告</div>
+                <div slot="header">社团简介</div>
+                <div style="margin-top: 6px">{{community.description}}</div>
+            </mu-expansion-panel>
+            <mu-expansion-panel :expand="panel === 'panel3'" @change="toggle('panel3')">
+                <div slot="header">精选活动</div>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet
                 blandit
                 leo lobortis eget.
             </mu-expansion-panel>
-            <mu-expansion-panel :expand="panel === 'panel3'" @change="toggle('panel3')">
-                <div slot="header">校园简介</div>
-                <div style="margin-top: 6px">{{school.schoolDescription}}</div>
-            </mu-expansion-panel>
         </div>
         <mu-tabs :value.sync="active" inverse color="primary" center @change="change">
             <mu-tab>动态</mu-tab>
-            <mu-tab>社团</mu-tab>
-            <mu-tab>校友</mu-tab>
-            <mu-tab>问答</mu-tab>
+            <mu-tab>活动</mu-tab>
+            <mu-tab>成员</mu-tab>
         </mu-tabs>
     </mu-container>
 </template>
 
 <script>
-    import api from '../../../api'
+    import api from '../../api'
 
     export default {
-        name: "Index",
+        name: "CommunityDetail",
         data() {
             return {
                 active: 0,
                 shift: 'explore',
                 panel: '',
-                school: {}
+                community: {}
             };
         },
         methods: {
@@ -117,9 +120,9 @@
             // } else if (this.$route.path.startsWith('/explore/activity')) {
             //     this.active = 3;
             // }
-            api.getSchoolDetail(this.$route.query.id).then((school) => {
-                if (school.code === 200) {
-                    this.school = school.data;
+            api.getCommunityDetail(this.$route.query.id).then((json) => {
+                if (json.code === 200) {
+                    this.community = json.data;
                 }
             })
         },

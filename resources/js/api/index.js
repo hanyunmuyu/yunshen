@@ -70,6 +70,9 @@ export default {
         }
         return get('api/v1/community', {page: page});
     },
+    getCommunityDetail: function (id) {
+        return get('api/v1/community/detail', {id: id});
+    },
     getSchoolDetail: function (id) {
         return get('api/v1/school/detail', {id: id});
     },

@@ -1,7 +1,9 @@
 <template>
     <div v-scroll.sync="scroll">
         <div style="margin-bottom: 40px">
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </div>
         <div class="footer">
             <app-footer></app-footer>

@@ -11,6 +11,7 @@ import router from './router';
 import store from './store';
 import Toast from 'muse-ui-toast';
 import VueLazyload from 'vue-lazyload';
+import 'material-icons/iconfont/material-icons.scss'
 
 window.Vue = require('vue');
 Vue.use(MuseUI);

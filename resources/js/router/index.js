@@ -24,6 +24,7 @@ import Chat from '../components/message/Chat';
 import Message from '../components/Message';
 import Register from '../components/Register';
 import Login from '../components/Login';
+import CommunityDetail from '../components/community/Detail';
 
 Vue.use(Router)
 export default new Router({
@@ -134,6 +135,10 @@ export default new Router({
         {
             path: '/login',
             component: Login,
+        },
+        {
+            path: '/community/detail',
+            component: CommunityDetail,
         },
     ]
 });
