@@ -26,6 +26,7 @@ import Register from '../components/Register';
 import Login from '../components/Login';
 import CommunityDetail from '../components/community/Detail';
 import SchoolCommunity from '../components/school/detail/Community';
+import SchoolStudent from '../components/school/detail/Student';
 
 Vue.use(Router)
 export default new Router({
@@ -130,8 +131,12 @@ export default new Router({
             component: SchoolDetail,
             children: [
                 {
-                    path: '/school/detail/community',
+                    path: 'community',
                     component: SchoolCommunity,
+                },
+                {
+                    path: 'student',
+                    component: SchoolStudent,
                 },
             ]
         },
