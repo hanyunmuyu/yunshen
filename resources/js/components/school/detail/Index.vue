@@ -59,7 +59,7 @@
         </div>
         <mu-tabs :value.sync="active" inverse color="primary" center @change="change">
             <mu-tab>动态</mu-tab>
-            <mu-tab>社团</mu-tab>
+            <mu-tab to="/school/detail/community">社团</mu-tab>
             <mu-tab>校友</mu-tab>
             <mu-tab>问答</mu-tab>
         </mu-tabs>
@@ -121,7 +121,7 @@
                 if (school.code === 200) {
                     this.school = school.data;
                 }
-            })
+            });
         },
     }
 </script>

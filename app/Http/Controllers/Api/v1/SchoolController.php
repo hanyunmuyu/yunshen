@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Repositories\Api\v1\CommunityRepository;
 use App\Repositories\Api\v1\SchoolRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,10 +11,11 @@ class SchoolController extends Controller
 {
     //
     private $schoolRepository;
-
-    public function __construct(SchoolRepository $schoolRepository)
+    private $communityRepository;
+    public function __construct(SchoolRepository $schoolRepository,CommunityRepository $communityRepository)
     {
         $this->schoolRepository = $schoolRepository;
+        $this->communityRepository = $communityRepository;
     }
 
     public function index()
@@ -29,5 +31,18 @@ class SchoolController extends Controller
         }
         $school = $this->schoolRepository->getSchoolById($id);
         return $this->success($school->toArray());
+    }
+
+    public function communityList(Request $request)
+    {
+        $id = $request->get('schoolId');
+        if (!$id) {
+            return $this->error('schoolId不可以为空');
+        }
+        $school = $this->schoolRepository->getSchoolById($id);
+        if (!$school) {
+            return $this->error('校园不存在');
+        }
+        return $this->success($this->communityRepository->getCommunityListBySchoolId($id)->toArray());
     }
 }

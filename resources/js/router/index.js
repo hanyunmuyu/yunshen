@@ -25,6 +25,7 @@ import Message from '../components/Message';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import CommunityDetail from '../components/community/Detail';
+import SchoolCommunity from '../components/school/detail/Community';
 
 Vue.use(Router)
 export default new Router({
@@ -127,6 +128,12 @@ export default new Router({
         {
             path: '/school/detail',
             component: SchoolDetail,
+            children: [
+                {
+                    path: '/school/detail/community',
+                    component: SchoolCommunity,
+                },
+            ]
         },
         {
             path: '/register',

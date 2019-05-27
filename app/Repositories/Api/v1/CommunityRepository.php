@@ -54,4 +54,10 @@ class CommunityRepository
             ->whereDate('updated_at', date('Y-m-d'))
             ->first();
     }
+
+    public function getCommunityListBySchoolId($schoolId)
+    {
+        return Community::where('school_id',$schoolId)
+            ->paginate();
+    }
 }
