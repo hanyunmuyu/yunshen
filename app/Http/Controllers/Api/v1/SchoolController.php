@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Repositories\Api\v1\CommunityRepository;
 use App\Repositories\Api\v1\SchoolRepository;
+use App\Repositories\Api\v1\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,10 +13,18 @@ class SchoolController extends Controller
     //
     private $schoolRepository;
     private $communityRepository;
-    public function __construct(SchoolRepository $schoolRepository,CommunityRepository $communityRepository)
+    private $userRepository;
+
+    public function __construct
+    (
+        SchoolRepository $schoolRepository,
+        CommunityRepository $communityRepository,
+        UserRepository $userRepository
+    )
     {
         $this->schoolRepository = $schoolRepository;
         $this->communityRepository = $communityRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function index()
@@ -44,5 +53,17 @@ class SchoolController extends Controller
             return $this->error('校园不存在');
         }
         return $this->success($this->communityRepository->getCommunityListBySchoolId($id)->toArray());
+    }
+
+    public function studentList(Request $request)
+    {
+        $schoolId = $request->get('schoolId');
+        if (!$schoolId) {
+            $school = $this->schoolRepository->getSchoolById($schoolId);
+            if (!$school) {
+                return $this->error('校园不存在');
+            }
+        }
+        return $this->success($this->userRepository->getSchoolUserList($schoolId)->toArray());
     }
 }

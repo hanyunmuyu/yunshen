@@ -3148,6 +3148,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Index",
@@ -3169,6 +3171,12 @@ __webpack_require__.r(__webpack_exports__);
       switch (v) {
         case 0:
           this.active = 0;
+          this.$router.replace({
+            path: '/school/detail',
+            query: {
+              id: this.$route.query.id
+            }
+          });
           break;
 
         case 1:
@@ -3211,6 +3219,15 @@ __webpack_require__.r(__webpack_exports__);
         _this.school = school.data;
       }
     });
+    var path = this.$route.path;
+
+    if (path.endsWith('detail')) {
+      this.active = 0;
+    } else if (path.endsWith('community')) {
+      this.active = 1;
+    } else if (path.endsWith('student')) {
+      this.active = 2;
+    }
   }
 });
 
@@ -3588,7 +3605,7 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           _this.refreshing = false;
         }, 500);
-        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getUserList().then(function (userList) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolStudentList(this.$route.query.id).then(function (userList) {
           _this.userList = userList.data.data;
           _this.lastPage = userList.data.lastPage;
           _this.currentPage = userList.data.currentPage;
@@ -3603,7 +3620,7 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         _this2.loading = false;
         _this2.currentPage++;
-        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getUserList(_this2.currentPage).then(function (userList) {
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolStudentList(_this2.$route.query.id, _this2.currentPage).then(function (userList) {
           userList.data.data.forEach(function (school) {
             _this2.userList.push(school);
           });
@@ -22399,7 +22416,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("router-view")
+      _c("keep-alive", [_c("router-view")], 1)
     ],
     1
   )
@@ -39135,6 +39152,16 @@ function post(url, params) {
     }
 
     return get('api/v1/school/community', {
+      schoolId: schoolId,
+      page: page
+    });
+  },
+  getSchoolStudentList: function getSchoolStudentList(schoolId, page) {
+    if (page === undefined) {
+      page = 1;
+    }
+
+    return get('api/v1/school/student', {
       schoolId: schoolId,
       page: page
     });

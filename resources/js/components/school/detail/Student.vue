@@ -47,7 +47,7 @@
                     setTimeout(() => {
                         this.refreshing = false;
                     }, 500);
-                    api.getUserList().then((userList) => {
+                    api.getSchoolStudentList(this.$route.query.id).then((userList) => {
                         this.userList = userList.data.data;
                         this.lastPage = userList.data.lastPage;
                         this.currentPage = userList.data.currentPage;
@@ -60,7 +60,7 @@
                 setTimeout(() => {
                     this.loading = false;
                     this.currentPage++;
-                    api.getUserList(this.currentPage).then((userList) => {
+                    api.getSchoolStudentList(this.$route.query.id, this.currentPage).then((userList) => {
                         userList.data.data.forEach((school) => {
                             this.userList.push(school);
                         });

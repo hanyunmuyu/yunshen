@@ -70,6 +70,12 @@ export default {
         }
         return get('api/v1/school/community', {schoolId: schoolId, page: page});
     },
+    getSchoolStudentList: function (schoolId, page) {
+        if (page === undefined) {
+            page = 1;
+        }
+        return get('api/v1/school/student', {schoolId: schoolId, page: page});
+    },
     getCommunityList: function (page) {
         if (page === undefined) {
             page = 1;

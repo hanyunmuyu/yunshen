@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1', 'middleware' => ['api']], f
     Route::get('/school/detail', 'SchoolController@detail');
     //校园社团列表
     Route::get('/school/community', 'SchoolController@communityList');
+    //校园 校友
+    Route::get('/school/student', 'SchoolController@studentList');
     //社团列表
     Route::get('/community', 'CommunityController@index');
     //社团详情

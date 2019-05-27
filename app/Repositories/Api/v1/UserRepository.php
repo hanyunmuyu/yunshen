@@ -19,4 +19,10 @@ class UserRepository
         return User::orderby('id', 'desc')
             ->paginate();
     }
+
+    public function getSchoolUserList($schoolId)
+    {
+        return User::where('school_id', $schoolId)
+            ->paginate();
+    }
 }

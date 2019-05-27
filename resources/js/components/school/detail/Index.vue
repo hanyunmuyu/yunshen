@@ -63,7 +63,9 @@
             <mu-tab>校友</mu-tab>
             <mu-tab>问答</mu-tab>
         </mu-tabs>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
     </mu-container>
 </template>
 
@@ -90,14 +92,15 @@
                 switch (v) {
                     case 0:
                         this.active = 0;
+                        this.$router.replace({path: '/school/detail', query: {id: this.$route.query.id}});
                         break;
                     case 1:
                         this.active = 1;
-                        this.$router.replace({path:'/school/detail/community',query:{id:this.$route.query.id}});
+                        this.$router.replace({path: '/school/detail/community', query: {id: this.$route.query.id}});
                         break;
                     case 2:
                         this.active = 2;
-                        this.$router.replace({path:'/school/detail/student',query:{id:this.$route.query.id}});
+                        this.$router.replace({path: '/school/detail/student', query: {id: this.$route.query.id}});
                         break;
                     case 3:
                         this.active = 3;
@@ -117,6 +120,14 @@
                     this.school = school.data;
                 }
             });
+            let path = this.$route.path;
+            if (path.endsWith('detail')) {
+                this.active = 0;
+            } else if (path.endsWith('community')) {
+                this.active = 1;
+            } else if (path.endsWith('student')) {
+                this.active = 2;
+            }
         },
     }
 </script>
