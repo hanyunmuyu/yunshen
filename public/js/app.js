@@ -3147,6 +3147,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Index",
@@ -3155,51 +3184,80 @@ __webpack_require__.r(__webpack_exports__);
       active: 0,
       shift: 'explore',
       panel: '',
-      school: {}
+      school: {},
+      communityList: [],
+      communityCurrentPage: 1,
+      communityLastPage: 1,
+      refreshing: false,
+      loading: false
     };
   },
   methods: {
-    change: function change(v) {// switch (v) {
-      //     case 0:
-      //         this.active = 0;
-      //         this.$router.push('/explore');
-      //         break;
-      //     case 1:
-      //         this.$router.push('/explore/recommend');
-      //         this.active = 1;
-      //         break;
-      //     case 2:
-      //         this.$router.push('/explore/attention');
-      //         this.active = 2;
-      //         break;
-      //     case 3:
-      //         this.$router.push('/explore/activity');
-      //         this.active = 3;
-      //         break;
-      // }
+    change: function change(v) {
+      switch (v) {
+        case 0:
+          this.active = 0;
+          break;
+
+        case 1:
+          this.active = 1;
+          this.refresh();
+          break;
+
+        case 2:
+          this.active = 2;
+          break;
+
+        case 3:
+          this.active = 3;
+          break;
+      }
     },
     back: function back() {
       this.$router.back();
+    },
+    refresh: function refresh() {
+      var _this = this;
+
+      if (!this.refreshing) {
+        this.refreshing = true;
+        this.$refs.container.scrollTop = 0;
+        this.communityCurrentPage = 1;
+        setTimeout(function () {
+          _this.refreshing = false;
+        }, 500);
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolCommunityList(this.$route.query.id, this.communityCurrentPage).then(function (result) {
+          _this.communityList = result.data.data;
+          _this.communityLastPage = result.data.lastPage;
+          _this.communityCurrentPage = result.data.currentPage;
+        });
+      }
+    },
+    load: function load() {
+      var _this2 = this;
+
+      this.loading = true;
+      setTimeout(function () {
+        _this2.loading = false;
+        _this2.communityCurrentPage++;
+        _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolCommunityList(_this2.$route.query.id, _this2.communityCurrentPage).then(function (result) {
+          result.data.data.forEach(function (school) {
+            _this2.communityList.push(school);
+          });
+          _this2.communityCurrentPage = result.data.currentPage;
+        });
+      }, 2000);
     },
     toggle: function toggle(panel) {
       this.panel = panel === this.panel ? '' : panel;
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
-    // if (this.$route.path.endsWith('/explore')) {
-    //     this.active = 0;
-    // } else if (this.$route.path.startsWith('/explore/recommend')) {
-    //     this.active = 1;
-    // } else if (this.$route.path.startsWith('/explore/attention')) {
-    //     this.active = 2;
-    // } else if (this.$route.path.startsWith('/explore/activity')) {
-    //     this.active = 3;
-    // }
     _api__WEBPACK_IMPORTED_MODULE_0__["default"].getSchoolDetail(this.$route.query.id).then(function (school) {
       if (school.code === 200) {
-        _this.school = school.data;
+        _this3.school = school.data;
       }
     });
   }
@@ -22182,13 +22240,163 @@ var render = function() {
         [
           _c("mu-tab", [_vm._v("动态")]),
           _vm._v(" "),
-          _c("mu-tab", { attrs: { to: "/school/detail/community" } }, [
-            _vm._v("社团")
-          ]),
+          _c("mu-tab", [_vm._v("社团")]),
           _vm._v(" "),
           _c("mu-tab", [_vm._v("校友")]),
           _vm._v(" "),
           _c("mu-tab", [_vm._v("问答")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "mu-container",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.active === 1,
+              expression: "active===1"
+            }
+          ],
+          ref: "container"
+        },
+        [
+          _c(
+            "mu-load-more",
+            {
+              attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
+              on: { refresh: _vm.refresh, load: _vm.load }
+            },
+            _vm._l(_vm.communityList, function(community, index) {
+              return _c(
+                "mu-card",
+                {
+                  key: index,
+                  staticClass: "community",
+                  staticStyle: {
+                    width: "50%",
+                    float: "left",
+                    padding: "2px",
+                    "margin-top": "10px"
+                  }
+                },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          path: "/community/detail",
+                          query: { id: community.id }
+                        }
+                      }
+                    },
+                    [
+                      _c("mu-card-media", [
+                        _c("img", {
+                          directives: [
+                            {
+                              name: "lazy",
+                              rawName: "v-lazy",
+                              value: community.communityLogo,
+                              expression: "community.communityLogo"
+                            }
+                          ]
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("mu-card-title", {
+                        staticStyle: { "text-align": "center" },
+                        attrs: {
+                          "sub-title": "",
+                          title: community.communityName
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-wrapper",
+                          attrs: { "align-items": "center" }
+                        },
+                        [
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [
+                              _vm._v(
+                                "成员：" +
+                                  _vm._s(community.memberNumber) +
+                                  "\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [
+                              _vm._v(
+                                "关注：" +
+                                  _vm._s(community.attentionNumber) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "mu-flex",
+                        {
+                          staticClass: "flex-wrapper",
+                          attrs: { "align-items": "center" }
+                        },
+                        [
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            [_vm._v("活跃：")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "mu-flex",
+                            {
+                              staticClass: "flex-demo",
+                              attrs: { "justify-content": "center", fill: "" }
+                            },
+                            _vm._l(community.star, function(s) {
+                              return _c("mu-icon", {
+                                key: s,
+                                attrs: { value: "star", color: "primary" }
+                              })
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
         ],
         1
       )
