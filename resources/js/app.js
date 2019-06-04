@@ -12,7 +12,9 @@ import store from './store';
 import Toast from 'muse-ui-toast';
 import VueLazyload from 'vue-lazyload';
 import 'material-icons/iconfont/material-icons.scss'
-
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
 window.Vue = require('vue');
 Vue.use(MuseUI);
 Vue.use(Toast);
@@ -23,6 +25,11 @@ Vue.use(VueLazyload, {
     loading: '/loading.gif',
     attempt: 3
 });
+Vue.use(VueVideoPlayer, /* {
+  options: global default options,
+  events: global videojs events
+} */);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
