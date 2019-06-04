@@ -2,6 +2,27 @@
     <div>
         <mu-container ref="container">
             <mu-load-more @refresh="refresh" :refreshing="refreshing" :loading="loading" @load="load">
+                <mu-list>
+                    <mu-sub-header>
+                        <mu-flex align-items="center">
+                            <mu-flex justify-content="start" fill>社团推荐</mu-flex>
+                            <mu-flex justify-content="end" fill>
+                                <mu-icon color="primary" left value="refresh"></mu-icon>
+                            </mu-flex>
+                        </mu-flex>
+                    </mu-sub-header>
+                    <mu-list-item v-for="index in 3" avatar button ripple :key="index">
+                        <mu-list-item-action>
+                            <mu-avatar size="24">
+                                <img src="/community.jpg">
+                            </mu-avatar>
+                        </mu-list-item-action>
+                        <mu-list-item-title>河南工业大学</mu-list-item-title>
+                        <mu-list-item-action>
+                            <mu-list-item-after-text>111校友</mu-list-item-after-text>
+                        </mu-list-item-action>
+                    </mu-list-item>
+                </mu-list>
                 <mu-card class="school" v-for="(school,index) in schoolList" :key="index">
                     <router-link :to="{path:'/school/detail',query:{id:school.id}}">
                         <mu-card-media>
@@ -76,7 +97,7 @@
             }
         },
         mounted() {
-            this.refresh()
+            this.refresh();
         }
     }
 </script>

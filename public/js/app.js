@@ -3016,6 +3016,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Community",
@@ -3278,6 +3299,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/js/api/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3813,7 +3855,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#bottom {\n  margin-top: 30px;\n  display: flex;\n}\n#bottom ul {\n  flex: 1;\n  list-style: none;\n}", ""]);
+exports.push([module.i, "#bottom {\n  display: flex;\n}\n#bottom ul {\n  flex: 1;\n  list-style: none;\n}", ""]);
 
 // exports
 
@@ -20108,7 +20150,6 @@ var render = function() {
       _c(
         "mu-carousel",
         {
-          staticStyle: { "margin-top": "10px" },
           attrs: { active: _vm.active },
           scopedSlots: _vm._u([
             {
@@ -22025,120 +22066,35 @@ var render = function() {
               attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
               on: { refresh: _vm.refresh, load: _vm.load }
             },
-            _vm._l(_vm.communityList, function(community, index) {
-              return _c(
-                "mu-card",
-                {
-                  key: index,
-                  staticClass: "community",
-                  staticStyle: {
-                    width: "50%",
-                    float: "left",
-                    padding: "2px",
-                    "margin-top": "10px"
-                  }
-                },
+            [
+              _c(
+                "mu-list",
                 [
                   _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: {
-                          path: "/community/detail",
-                          query: { id: community.id }
-                        }
-                      }
-                    },
+                    "mu-sub-header",
                     [
-                      _c("mu-card-media", [
-                        _c("img", {
-                          directives: [
-                            {
-                              name: "lazy",
-                              rawName: "v-lazy",
-                              value: community.communityLogo,
-                              expression: "community.communityLogo"
-                            }
-                          ]
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("mu-card-title", {
-                        staticStyle: { "text-align": "center" },
-                        attrs: {
-                          "sub-title": "",
-                          title: community.communityName
-                        }
-                      }),
-                      _vm._v(" "),
                       _c(
                         "mu-flex",
-                        {
-                          staticClass: "flex-wrapper",
-                          attrs: { "align-items": "center" }
-                        },
+                        { attrs: { "align-items": "center" } },
                         [
                           _c(
                             "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            [
-                              _vm._v(
-                                "成员：" +
-                                  _vm._s(community.memberNumber) +
-                                  "\n                        "
-                              )
-                            ]
+                            { attrs: { "justify-content": "start", fill: "" } },
+                            [_vm._v("社团推荐")]
                           ),
                           _vm._v(" "),
                           _c(
                             "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
+                            { attrs: { "justify-content": "end", fill: "" } },
                             [
-                              _vm._v(
-                                "关注：" +
-                                  _vm._s(community.attentionNumber) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "mu-flex",
-                        {
-                          staticClass: "flex-wrapper",
-                          attrs: { "align-items": "center" }
-                        },
-                        [
-                          _c(
-                            "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            [_vm._v("活跃：")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            _vm._l(community.star, function(s) {
-                              return _c("mu-icon", {
-                                key: s,
-                                attrs: { value: "star", color: "primary" }
+                              _c("mu-icon", {
+                                attrs: {
+                                  color: "primary",
+                                  left: "",
+                                  value: "refresh"
+                                }
                               })
-                            }),
+                            ],
                             1
                           )
                         ],
@@ -22146,12 +22102,169 @@ var render = function() {
                       )
                     ],
                     1
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm._l(3, function(index) {
+                    return _c(
+                      "mu-list-item",
+                      {
+                        key: index,
+                        attrs: { avatar: "", button: "", ripple: "" }
+                      },
+                      [
+                        _c(
+                          "mu-list-item-action",
+                          [
+                            _c("mu-avatar", { attrs: { size: "24" } }, [
+                              _c("img", { attrs: { src: "/community.jpg" } })
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("mu-list-item-title", [_vm._v("网球社团")]),
+                        _vm._v(" "),
+                        _c(
+                          "mu-list-item-action",
+                          [_c("mu-list-item-after-text", [_vm._v("111成员")])],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  })
                 ],
-                1
-              )
-            }),
-            1
+                2
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.communityList, function(community, index) {
+                return _c(
+                  "mu-card",
+                  {
+                    key: index,
+                    staticClass: "community",
+                    staticStyle: {
+                      width: "50%",
+                      float: "left",
+                      padding: "2px",
+                      "margin-top": "10px"
+                    }
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            path: "/community/detail",
+                            query: { id: community.id }
+                          }
+                        }
+                      },
+                      [
+                        _c("mu-card-media", [
+                          _c("img", {
+                            directives: [
+                              {
+                                name: "lazy",
+                                rawName: "v-lazy",
+                                value: community.communityLogo,
+                                expression: "community.communityLogo"
+                              }
+                            ]
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("mu-card-title", {
+                          staticStyle: { "text-align": "center" },
+                          attrs: {
+                            "sub-title": "",
+                            title: community.communityName
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "mu-flex",
+                          {
+                            staticClass: "flex-wrapper",
+                            attrs: { "align-items": "center" }
+                          },
+                          [
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [
+                                _vm._v(
+                                  "成员：" +
+                                    _vm._s(community.memberNumber) +
+                                    "\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [
+                                _vm._v(
+                                  "关注：" +
+                                    _vm._s(community.attentionNumber) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "mu-flex",
+                          {
+                            staticClass: "flex-wrapper",
+                            attrs: { "align-items": "center" }
+                          },
+                          [
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [_vm._v("活跃：")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              _vm._l(community.star, function(s) {
+                                return _c("mu-icon", {
+                                  key: s,
+                                  attrs: { value: "star", color: "primary" }
+                                })
+                              }),
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
+            ],
+            2
           )
         ],
         1
@@ -22521,102 +22634,35 @@ var render = function() {
               attrs: { refreshing: _vm.refreshing, loading: _vm.loading },
               on: { refresh: _vm.refresh, load: _vm.load }
             },
-            _vm._l(_vm.schoolList, function(school, index) {
-              return _c(
-                "mu-card",
-                { key: index, staticClass: "school" },
+            [
+              _c(
+                "mu-list",
                 [
                   _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: { path: "/school/detail", query: { id: school.id } }
-                      }
-                    },
+                    "mu-sub-header",
                     [
-                      _c("mu-card-media", [
-                        _c("img", {
-                          directives: [
-                            {
-                              name: "lazy",
-                              rawName: "v-lazy",
-                              value: school.schoolLogo,
-                              expression: "school.schoolLogo"
-                            }
-                          ]
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("mu-card-title", {
-                        staticStyle: { "text-align": "center" },
-                        attrs: {
-                          "sub-title": school.schoolDescription,
-                          title: school.schoolName
-                        }
-                      }),
-                      _vm._v(" "),
                       _c(
                         "mu-flex",
-                        {
-                          staticClass: "flex-wrapper",
-                          attrs: { "align-items": "center" }
-                        },
+                        { attrs: { "align-items": "center" } },
                         [
                           _c(
                             "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
+                            { attrs: { "justify-content": "start", fill: "" } },
+                            [_vm._v("社团推荐")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "mu-flex",
+                            { attrs: { "justify-content": "end", fill: "" } },
                             [
-                              _vm._v(
-                                "社团：" +
-                                  _vm._s(school.communityNumber) +
-                                  "\n                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            [_vm._v("校友：" + _vm._s(school.userNumber))]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "mu-flex",
-                        {
-                          staticClass: "flex-wrapper",
-                          attrs: { "align-items": "center" }
-                        },
-                        [
-                          _c(
-                            "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            [_vm._v("星级：")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "mu-flex",
-                            {
-                              staticClass: "flex-demo",
-                              attrs: { "justify-content": "center", fill: "" }
-                            },
-                            _vm._l(school.star, function(s) {
-                              return _c("mu-icon", {
-                                key: s,
-                                attrs: { value: "star", color: "primary" }
+                              _c("mu-icon", {
+                                attrs: {
+                                  color: "primary",
+                                  left: "",
+                                  value: "refresh"
+                                }
                               })
-                            }),
+                            ],
                             1
                           )
                         ],
@@ -22624,12 +22670,154 @@ var render = function() {
                       )
                     ],
                     1
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm._l(3, function(index) {
+                    return _c(
+                      "mu-list-item",
+                      {
+                        key: index,
+                        attrs: { avatar: "", button: "", ripple: "" }
+                      },
+                      [
+                        _c(
+                          "mu-list-item-action",
+                          [
+                            _c("mu-avatar", { attrs: { size: "24" } }, [
+                              _c("img", { attrs: { src: "/community.jpg" } })
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("mu-list-item-title", [_vm._v("河南工业大学")]),
+                        _vm._v(" "),
+                        _c(
+                          "mu-list-item-action",
+                          [_c("mu-list-item-after-text", [_vm._v("111校友")])],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  })
                 ],
-                1
-              )
-            }),
-            1
+                2
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.schoolList, function(school, index) {
+                return _c(
+                  "mu-card",
+                  { key: index, staticClass: "school" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            path: "/school/detail",
+                            query: { id: school.id }
+                          }
+                        }
+                      },
+                      [
+                        _c("mu-card-media", [
+                          _c("img", {
+                            directives: [
+                              {
+                                name: "lazy",
+                                rawName: "v-lazy",
+                                value: school.schoolLogo,
+                                expression: "school.schoolLogo"
+                              }
+                            ]
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("mu-card-title", {
+                          staticStyle: { "text-align": "center" },
+                          attrs: {
+                            "sub-title": school.schoolDescription,
+                            title: school.schoolName
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "mu-flex",
+                          {
+                            staticClass: "flex-wrapper",
+                            attrs: { "align-items": "center" }
+                          },
+                          [
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [
+                                _vm._v(
+                                  "社团：" +
+                                    _vm._s(school.communityNumber) +
+                                    "\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [_vm._v("校友：" + _vm._s(school.userNumber))]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "mu-flex",
+                          {
+                            staticClass: "flex-wrapper",
+                            attrs: { "align-items": "center" }
+                          },
+                          [
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              [_vm._v("星级：")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "mu-flex",
+                              {
+                                staticClass: "flex-demo",
+                                attrs: { "justify-content": "center", fill: "" }
+                              },
+                              _vm._l(school.star, function(s) {
+                                return _c("mu-icon", {
+                                  key: s,
+                                  attrs: { value: "star", color: "primary" }
+                                })
+                              }),
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
+            ],
+            2
           )
         ],
         1

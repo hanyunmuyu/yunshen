@@ -21,7 +21,7 @@
             </mu-menu>
         </mu-appbar>
 
-        <mu-carousel :active="active" style="margin-top: 10px">
+        <mu-carousel :active="active">
             <template slot="indicator" slot-scope="{ index, active }">
                 <mu-button icon class="mu-carousel-indicator-button"
                            :class="{'mu-carousel-indicator-button__active': active}" @click="changeActive(index)">
@@ -63,7 +63,6 @@
 
 <style lang="scss">
     #bottom {
-        margin-top: 30px;
         display: flex;
 
         ul {
