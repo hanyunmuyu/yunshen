@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1', 'middleware' => ['api']], f
     Route::get('/school/student', 'SchoolController@studentList');
     //社团列表
     Route::get('/community', 'CommunityController@index');
+    Route::post('/upload', 'CommunityController@upload');
     //社团详情
     Route::get('/community/detail', 'CommunityController@detail');
     //用户列表

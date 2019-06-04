@@ -25,6 +25,7 @@ import Message from '../components/Message';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import CommunityDetail from '../components/community/Detail';
+import CommunityCreate from '../components/community/Create';
 import SchoolCommunity from '../components/school/detail/Community';
 import SchoolStudent from '../components/school/detail/Student';
 
@@ -151,6 +152,10 @@ export default new Router({
         {
             path: '/community/detail',
             component: CommunityDetail,
+        },
+        {
+            path: '/community/create',
+            component: CommunityCreate,
         },
     ]
 });

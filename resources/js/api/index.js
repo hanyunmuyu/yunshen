@@ -99,6 +99,10 @@ export default {
             page = 1;
         }
         return get('api/v1/user', {page: page});
+    },
+    upload:function (param) {
+        console.log(param);
+        return post('api/v1/upload', param);
     }
 };
 
