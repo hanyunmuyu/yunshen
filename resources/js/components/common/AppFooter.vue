@@ -2,10 +2,10 @@
     <div class="footer">
         <mu-container>
             <mu-bottom-nav :value.sync="home" @change="change">
-                <mu-bottom-nav-item to="/" title="邂逅" value="/" icon="favorite"></mu-bottom-nav-item>
+                <mu-bottom-nav-item to="/encounter" title="邂逅" value="/encounter" icon="favorite"></mu-bottom-nav-item>
                 <mu-bottom-nav-item to="/school" title="高校" value="/school" icon="school"></mu-bottom-nav-item>
+                <mu-bottom-nav-item to="/" title="首页" value="/" icon="home"></mu-bottom-nav-item>
                 <mu-bottom-nav-item to="/explore" title="发现" value="/explore" icon="explore"></mu-bottom-nav-item>
-                <mu-bottom-nav-item to="/message" title="消息" value="/message" icon="chat"></mu-bottom-nav-item>
                 <mu-bottom-nav-item to="/user" title="我的" value="/user" icon="person"></mu-bottom-nav-item>
             </mu-bottom-nav>
         </mu-container>
@@ -33,8 +33,8 @@
                     this.$data.home = '/school';
                 } else if (this.$route.path.startsWith('/explore')) {
                     this.$data.home = '/explore';
-                } else if (this.$route.path.startsWith('/message')) {
-                    this.$data.home = '/message';
+                } else if (this.$route.path.startsWith('/encounter')) {
+                    this.$data.home = '/encounter';
                 } else if (this.$route.path.startsWith('/user')) {
                     this.$data.home = '/user';
                 }
@@ -47,8 +47,8 @@
                 this.$data.home = '/school';
             } else if (this.$route.path.startsWith('/explore')) {
                 this.$data.home = '/explore';
-            } else if (this.$route.path.startsWith('/message')) {
-                this.$data.home = '/message';
+            } else if (this.$route.path.startsWith('/encounter')) {
+                this.$data.home = '/encounter';
             } else if (this.$route.path.startsWith('/user')) {
                 this.$data.home = '/user';
             }

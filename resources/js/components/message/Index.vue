@@ -1,12 +1,17 @@
 <template>
-    <div>
-        <mu-tabs :value.sync="active" center @change="change">
-            <mu-tab>消息</mu-tab>
-            <mu-tab>通知</mu-tab>
-            <mu-tab>公告</mu-tab>
-        </mu-tabs>
+    <mu-container>
+        <mu-appbar style="width: 100%;" color="primary" textColor="white">
+            <mu-button icon slot="left" @click="back">
+                <mu-icon value="arrow_back"></mu-icon>
+            </mu-button>
+            <mu-tabs :value.sync="active" center @change="change">
+                <mu-tab>消息</mu-tab>
+                <mu-tab>通知</mu-tab>
+                <mu-tab>公告</mu-tab>
+            </mu-tabs>
+        </mu-appbar>
         <router-view></router-view>
-    </div>
+    </mu-container>
 </template>
 
 <script>
@@ -38,7 +43,10 @@
                 //         this.active = 3;
                 //         break;
                 // }
-            }
+            },
+            back() {
+                this.$router.back();
+            },
         },
         mounted() {
             if (this.$route.path.endsWith('/explore')) {

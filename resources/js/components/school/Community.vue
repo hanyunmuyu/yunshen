@@ -5,7 +5,7 @@
                 <mu-list>
                     <mu-sub-header>
                         <mu-flex align-items="center">
-                            <mu-flex justify-content="start" fill>社团推荐</mu-flex>
+                            <mu-flex justify-content="start" fill>活力社团</mu-flex>
                             <mu-flex justify-content="end" fill>
                                 <mu-icon color="primary" left value="refresh"></mu-icon>
                             </mu-flex>

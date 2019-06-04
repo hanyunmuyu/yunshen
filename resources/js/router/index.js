@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../components/Home';
+import HomePage from '../components/home/Index';
 import Explore from '../components/Explore';
 import Nearby from '../components/explore/Nearby';
 import Recommend from '../components/explore/Recommend';
@@ -51,15 +52,16 @@ export default new Router({
                         {
                             path: 'attention',
                             component: Attention,
-                        }, {
+                        },
+                        {
                             path: 'activity',
                             component: Activity,
                         },
                     ]
                 },
                 {
-                    path: 'message',
-                    component: Message,
+                    path: '',
+                    component: HomePage,
                     children: [
 
                         {
@@ -96,7 +98,7 @@ export default new Router({
                     component: User,
                 },
                 {
-                    path: '/',
+                    path: '/encounter',
                     component: Encounter,
                 },
 
@@ -106,6 +108,10 @@ export default new Router({
         {
             path: '/search',
             component: Search,
+        },
+        {
+            path: '/message',
+            component: Message,
         },
         {
             path: '/user/attention',

@@ -1,13 +1,20 @@
 <template>
-    <div>
-        <mu-tabs :value.sync="active" center @change="change">
-            <mu-tab>附近</mu-tab>
-            <mu-tab>推荐</mu-tab>
-            <mu-tab>关注</mu-tab>
-            <mu-tab>活动</mu-tab>
-        </mu-tabs>
+    <mu-container>
+        <mu-appbar style="width: 100%;" color="primary" textColor="white">
+            <mu-tabs :value.sync="active" center @change="change">
+                <mu-tab>附近</mu-tab>
+                <mu-tab>推荐</mu-tab>
+                <mu-tab>关注</mu-tab>
+                <mu-tab>活动</mu-tab>
+            </mu-tabs>
+            <mu-button flat slot="right" to="/message">
+                <mu-icon value="mail"></mu-icon>
+                {{message}}
+            </mu-button>
+        </mu-appbar>
         <router-view></router-view>
-    </div>
+    </mu-container>
+
 </template>
 
 <script>
@@ -16,7 +23,8 @@
         data() {
             return {
                 active: 0,
-                shift: 'explore'
+                shift: 'explore',
+                message: 6
             };
         },
         methods: {
