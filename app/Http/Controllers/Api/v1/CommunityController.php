@@ -107,6 +107,7 @@ class CommunityController extends Controller
         $data['description'] = $description;
         $data['school_id'] = $request->user('api')->school_id;
         $data['user_id'] = $request->user('api')->id;
+        $data['community_logo'] = $request->get('logo');
         $this->communityRepository->createCommunity($data,$category);
         return $this->success();
     }

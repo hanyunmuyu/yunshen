@@ -13,7 +13,7 @@
                        ref="avatarInput" @change="changeImage($event)"
                        accept="image/gif,image/jpeg,image/jpg,image/png">
                 <mu-avatar>
-                    <img :src="validateForm.logo?validateForm.logo:'/avatar.jpg'" alt=""
+                    <img :src="logo?logo:'/avatar.jpg'" alt=""
                          :style="`width:${imgWidth};height: ${imgHeight};`" name="avatar">
                 </mu-avatar>
             </div>
@@ -53,6 +53,7 @@
             return {
                 file: '',
                 showBg: false,
+                logo: '',
                 categoryList: [],
                 communityNameRules: [
                     {validate: (val) => !!val, message: '社团名称不可以为空'},
@@ -112,7 +113,8 @@
                 data.append('operaType', this.uploadType)
                 api.upload(data).then((v) => {
                     if (v.code === 200) {
-                        this.validateForm.logo = v.data.avatar;
+                        this.validateForm.logo = v.data.path;
+                        this.logo = v.data.avatar;
                     }
                 });
             },
@@ -131,7 +133,6 @@
                 this.$refs.form.validate().then((result) => {
                     if (result === true) {
                         api.createCategory(this.validateForm).then((v) => {
-                            console.log(v);
                             if (v.code === 200) {
                                 this.$router.back();
                             } else {

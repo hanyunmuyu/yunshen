@@ -2648,6 +2648,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       file: '',
       showBg: false,
+      logo: '',
       categoryList: [],
       communityNameRules: [{
         validate: function validate(val) {
@@ -2742,7 +2743,8 @@ __webpack_require__.r(__webpack_exports__);
       data.append('operaType', this.uploadType);
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].upload(data).then(function (v) {
         if (v.code === 200) {
-          _this.validateForm.logo = v.data.avatar;
+          _this.validateForm.logo = v.data.path;
+          _this.logo = v.data.avatar;
         }
       });
     },
@@ -2765,8 +2767,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.form.validate().then(function (result) {
         if (result === true) {
           _api__WEBPACK_IMPORTED_MODULE_0__["default"].createCategory(_this2.validateForm).then(function (v) {
-            console.log(v);
-
             if (v.code === 200) {
               _this2.$router.back();
             } else {
@@ -50189,7 +50189,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", [
-                _c("div", [_vm._v("我想静静")]),
+                _c("div", [_vm._v(_vm._s(_vm.user.name))]),
                 _vm._v(" "),
                 _c("div", [_vm._v("我想静静")])
               ]),
@@ -50547,9 +50547,7 @@ var render = function() {
                 style:
                   "width:" + _vm.imgWidth + ";height: " + _vm.imgHeight + ";",
                 attrs: {
-                  src: _vm.validateForm.logo
-                    ? _vm.validateForm.logo
-                    : "/avatar.jpg",
+                  src: _vm.logo ? _vm.logo : "/avatar.jpg",
                   alt: "",
                   name: "avatar"
                 }

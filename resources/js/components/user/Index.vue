@@ -16,7 +16,7 @@
                 <img v-lazy="user.avatar">
             </mu-avatar>
             <div>
-                <div>我想静静</div>
+                <div>{{user.name}}</div>
                 <div>我想静静</div>
             </div>
             <div style="flex: 1;float: right;text-align:end">
