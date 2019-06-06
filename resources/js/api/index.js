@@ -100,9 +100,14 @@ export default {
         }
         return get('api/v1/user', {page: page});
     },
-    upload:function (param) {
-        console.log(param);
+    upload: function (param) {
         return post('api/v1/upload', param);
+    },
+    getCommunityCategory() {
+        return get('/api/v1/community/category');
+    },
+    createCategory(params) {
+        return post('/api/v1/community/create', params);
     }
 };
 

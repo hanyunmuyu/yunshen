@@ -8,7 +8,9 @@
 
 namespace App\Repositories\Api\v1;
 
+use App\Models\Category;
 use App\Models\Community;
+use App\Models\CommunityCategory;
 use App\Models\CommunityUser;
 use App\Models\CommunityUserSign;
 
@@ -23,6 +25,10 @@ class CommunityRepository
     public function getCommunityById($communityId)
     {
         return Community::find($communityId);
+    }
+    public function getCommunityByName($communityName)
+    {
+        return Community::where('community_name',$communityName)->first();
     }
 
     public function payAttentionToCommunity($userId, $communityId)
@@ -59,5 +65,23 @@ class CommunityRepository
     {
         return Community::where('school_id',$schoolId)
             ->paginate();
+    }
+
+    public function getCommunityCategoryList()
+    {
+        return Category::all();
+    }
+
+    public function createCommunity($data,$category)
+    {
+        $community = Community::firstOrCreate($data);
+        if ($community) {
+            foreach ($category as $cat) {
+                $tmp = [];
+                $tmp['community_id'] = $community->id;
+                $tmp['category_id'] = $cat;
+                CommunityCategory::firstOrCreate($tmp);
+            }
+        }
     }
 }

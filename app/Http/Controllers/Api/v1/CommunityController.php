@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Repositories\Api\v1\CommunityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CommunityController extends Controller
 {
@@ -72,17 +73,41 @@ class CommunityController extends Controller
         return $this->success();
     }
 
-    public function upload(Request $request)
+    public function getCommunityCategory()
     {
-        $data = [];
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $avatar = $file->store('avatar/' . date("Y-m-d"), 'public');
-            $data['avatar'] = asset('storage/' . $avatar);
-            $data['path'] = $avatar;
-            return $this->success($data);
-        } else {
-            return $this->error();
+        return $this->success($this->communityRepository->getCommunityCategoryList()->toArray());
+    }
+
+    public function createCategory(Request $request)
+    {
+        $messages = [
+            'communityName.required' => '社团名称不可以为空!',
+            'communityDescription.required' => '社团描述不可以为空!',
+            'category.required' => '社团分类不可以为空!',
+            'logo.required' => '社团徽标不可以为空!',
+        ];
+        $validator = Validator::make($request->all(), [
+            'communityName' => 'required',
+            'communityDescription' => 'required',
+            'category' => 'required',
+            'logo' => 'required',
+        ], $messages);
+        if ($validator->fails()) {
+            return $this->error($validator->errors());
         }
+        $community = $this->communityRepository->getCommunityByName($request->get('communityName'));
+        if ($community) {
+            $validator->errors()->add('communityName', '该社团已经存在');
+            return $this->error('社团已经存在');
+        }
+        $communityName = $request->get('communityName');
+        $category = $request->get('category');
+        $description = $request->get('communityDescription');
+        $data['community_name'] = $communityName;
+        $data['description'] = $description;
+        $data['school_id'] = $request->user('api')->school_id;
+        $data['user_id'] = $request->user('api')->id;
+        $this->communityRepository->createCommunity($data,$category);
+        return $this->success();
     }
 }

@@ -2619,14 +2619,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Create",
   data: function data() {
     return {
-      avatar: '',
       file: '',
-      showBg: false
+      showBg: false,
+      categoryList: [],
+      communityNameRules: [{
+        validate: function validate(val) {
+          return !!val;
+        },
+        message: '社团名称不可以为空'
+      }, {
+        validate: function validate(val) {
+          return val.length >= 3;
+        },
+        message: '社团名称长度大于3'
+      }],
+      passwordRules: [{
+        validate: function validate(val) {
+          return !!val;
+        },
+        message: '必须填写密码'
+      }, {
+        validate: function validate(val) {
+          return val.length >= 3 && val.length <= 10;
+        },
+        message: '密码长度大于3小于10'
+      }],
+      communityDescriptionRules: [{
+        validate: function validate(val) {
+          return !!val;
+        },
+        message: '必须填写确认密码'
+      }, {
+        validate: function validate(val) {
+          return val.length >= 3 && val.length <= 10;
+        },
+        message: '密码长度大于3小于10'
+      }],
+      categoryRules: [{
+        validate: function validate(val) {
+          return !!val;
+        },
+        message: '请选择社团类型'
+      }, {
+        validate: function validate(val) {
+          return val.length;
+        },
+        message: '至少选择一个社团分类'
+      }],
+      validateForm: {
+        communityName: '',
+        communityDescription: '',
+        category: [],
+        logo: null
+      },
+      disabled: false
     };
   },
   props: ["uploadType", "imgUrl", "imgWidth", "imgHeight"],
@@ -2668,14 +2741,51 @@ __webpack_require__.r(__webpack_exports__);
       data.append('avatar', fileData);
       data.append('operaType', this.uploadType);
       _api__WEBPACK_IMPORTED_MODULE_0__["default"].upload(data).then(function (v) {
-        if (v.data.code === 200) {
-          _this.avatar = v.data.avatar;
+        if (v.code === 200) {
+          _this.validateForm.logo = v.data.avatar;
         }
       });
     },
     back: function back() {
       this.$router.back();
+    },
+    submit: function submit() {
+      var _this2 = this;
+
+      this.disabled = true;
+      setTimeout(function () {
+        _this2.disabled = false;
+      }, 2000);
+
+      if (this.validateForm.logo === null) {
+        this.$toast.error("请选择社团徽标");
+        return;
+      }
+
+      this.$refs.form.validate().then(function (result) {
+        if (result === true) {
+          _api__WEBPACK_IMPORTED_MODULE_0__["default"].createCategory(_this2.validateForm).then(function (v) {
+            console.log(v);
+
+            if (v.code === 200) {
+              _this2.$router.back();
+            } else {
+              _this2.$toast.error(v.msg);
+            }
+          });
+        }
+      });
+    },
+    getCommunityCategory: function getCommunityCategory() {
+      var _this3 = this;
+
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getCommunityCategory().then(function (v) {
+        _this3.categoryList = v.data;
+      });
     }
+  },
+  mounted: function mounted() {
+    this.getCommunityCategory();
   }
 });
 
@@ -50437,7 +50547,9 @@ var render = function() {
                 style:
                   "width:" + _vm.imgWidth + ";height: " + _vm.imgHeight + ";",
                 attrs: {
-                  src: _vm.avatar ? _vm.avatar : "/avatar.jpg",
+                  src: _vm.validateForm.logo
+                    ? _vm.validateForm.logo
+                    : "/avatar.jpg",
                   alt: "",
                   name: "avatar"
                 }
@@ -50447,7 +50559,112 @@ var render = function() {
           1
         ),
         _vm._v("\n        上传社团徽标\n    ")
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "mu-form",
+        {
+          ref: "form",
+          attrs: { model: _vm.validateForm, "label-position": "left" }
+        },
+        [
+          _c(
+            "mu-form-item",
+            {
+              attrs: {
+                label: "社团名称",
+                "help-text": "",
+                prop: "communityName",
+                rules: _vm.communityNameRules
+              }
+            },
+            [
+              _c("mu-text-field", {
+                attrs: { prop: "communityName" },
+                model: {
+                  value: _vm.validateForm.communityName,
+                  callback: function($$v) {
+                    _vm.$set(_vm.validateForm, "communityName", $$v)
+                  },
+                  expression: "validateForm.communityName"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "mu-form-item",
+            {
+              attrs: {
+                label: "社团描述",
+                prop: "communityDescription",
+                rules: _vm.communityDescriptionRules
+              }
+            },
+            [
+              _c("mu-text-field", {
+                attrs: { "multi-line": "", prop: "communityDescription" },
+                model: {
+                  value: _vm.validateForm.communityDescription,
+                  callback: function($$v) {
+                    _vm.$set(_vm.validateForm, "communityDescription", $$v)
+                  },
+                  expression: "validateForm.communityDescription"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "mu-form-item",
+            {
+              attrs: {
+                label: "社团分类",
+                prop: "category",
+                rules: _vm.categoryRules
+              }
+            },
+            _vm._l(_vm.categoryList, function(category) {
+              return _c(
+                "mu-flex",
+                { key: category.id },
+                [
+                  _c("mu-checkbox", {
+                    attrs: { value: category.id, label: category.categoryName },
+                    model: {
+                      value: _vm.validateForm.category,
+                      callback: function($$v) {
+                        _vm.$set(_vm.validateForm, "category", $$v)
+                      },
+                      expression: "validateForm.category"
+                    }
+                  })
+                ],
+                1
+              )
+            }),
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "mu-form-item",
+            [
+              _c(
+                "mu-button",
+                {
+                  attrs: { disabled: _vm.disabled, color: "primary" },
+                  on: { click: _vm.submit }
+                },
+                [_vm._v("创建")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -69386,8 +69603,13 @@ function post(url, params) {
     });
   },
   upload: function upload(param) {
-    console.log(param);
     return post('api/v1/upload', param);
+  },
+  getCommunityCategory: function getCommunityCategory() {
+    return get('/api/v1/community/category');
+  },
+  createCategory: function createCategory(params) {
+    return post('/api/v1/community/create', params);
   }
 });
 
